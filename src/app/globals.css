@@ -14,6 +14,12 @@
   }
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -24,4 +30,8 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+    .input-icon {
+        @apply absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500;
+    }
 }
