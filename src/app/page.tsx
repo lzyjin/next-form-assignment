@@ -4,7 +4,7 @@ import Input from "@/components/input";
 import handleLogin from "@/app/actions";
 import Button from "@/components/button";
 import {useFormState} from "react-dom";
-import { CheckBadgeIcon } from "@heroicons/react/20/solid";
+import SuccessMessage from "@/components/success-message";
 
 export default function Home() {
   const [state, formAction] = useFormState(handleLogin, null);
@@ -14,17 +14,11 @@ export default function Home() {
       <div>
         <div className="mb-8 text-3xl text-center">🐨</div>
         <form action={formAction} className="flex flex-col gap-3 w-screen max-w-md">
-          <Input name="email" type="email" required={true} placeholder="Email"/>
-          <Input name="username" type="text" required={true} placeholder="Username"/>
-          <Input name="password" type="password" required={true} placeholder="Password" error={state?.success === false ? state.message : undefined}/>
+          <Input name="email" type="email" required={true} placeholder="Email" errors={state?.fieldErrors.email} />
+          <Input name="username" type="text" required={true} placeholder="Username" errors={state?.fieldErrors.username} />
+          <Input name="password" type="password" required={true} placeholder="Password" errors={state?.fieldErrors.password} />
           <Button text="Log in" />
-          {
-            state?.success === true &&
-            <div className="bg-emerald-500 text-black flex items-center gap-3 p-4 rounded-xl">
-              <CheckBadgeIcon className="h-6 w-6"/>
-              <span>{state.message}</span>
-            </div>
-          }
+          { !state?.fieldErrors && <SuccessMessage /> }
         </form>
       </div>
     </div>
