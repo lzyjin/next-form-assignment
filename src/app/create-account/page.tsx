@@ -17,9 +17,9 @@ export default function CreateAccountPage() {
           <Input name="email" type="email" required={true} placeholder="이메일" errors={state?.fieldErrors.email}/>
           <Input name="username" type="text" required={true} placeholder="이름" errors={state?.fieldErrors.username}/>
           <Input name="password" type="password" required={true} placeholder="비밀번호" errors={state?.fieldErrors.password}/>
-          <Input name="confirmPassword" type="password" required={true} placeholder="비밀번호 확인" errors={state?.fieldErrors.password}/>
+          <Input name="confirmPassword" type="password" required={true} placeholder="비밀번호 확인" errors={state?.fieldErrors.confirmPassword}/>
           <Button text="계정 생성"/>
-          {!state?.fieldErrors && <SuccessMessage/>}
+          {!state?.fieldErrors && <SuccessMessage text="계정이 생성되었습니다." />}
         </form>
       </div>
     </div>

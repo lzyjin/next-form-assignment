@@ -9,7 +9,7 @@ interface InputProps {
   errors?: string[];
 }
 
-export default function Input({name, type, required, placeholder, errors}: InputProps & InputHTMLAttributes<HTMLInputElement>) {
+export default function Input({name, errors = [], ...rest}: InputProps & InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div>
       <div
@@ -19,14 +19,8 @@ export default function Input({name, type, required, placeholder, errors}: Input
       `}>
         {name === "email" && <EnvelopeIcon className="input-icon"/>}
         {name === "username" && <UserIcon className="input-icon"/>}
-        {name === "password" && <KeyIcon className="input-icon"/>}
-        <input
-          name={name}
-          type={type}
-          placeholder={placeholder}
-          required={required}
-          className="w-full bg-white py-2.5 pl-12 pr-5 outline-0"
-        />
+        {(name === "password" || name === "confirmPassword") && <KeyIcon className="input-icon"/>}
+        <input name={name} {...rest} className="w-full bg-white py-2.5 pl-12 pr-5 outline-0" />
       </div>
       {errors && <p className="text-red-600 my-1 text-sm">{errors}</p>}
     </div>

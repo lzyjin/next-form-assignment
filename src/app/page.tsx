@@ -18,7 +18,7 @@ export default function Home() {
           <Input name="username" type="text" required={true} placeholder="Username" errors={state?.fieldErrors.username} />
           <Input name="password" type="password" required={true} placeholder="Password" errors={state?.fieldErrors.password} />
           <Button text="Log in" />
-          { !state?.fieldErrors && <SuccessMessage /> }
+          { !state?.fieldErrors && <SuccessMessage text="Welcome back!" /> }
         </form>
       </div>
     </div>
