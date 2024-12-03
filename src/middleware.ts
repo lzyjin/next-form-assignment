@@ -1,6 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
 import {getSession} from "@/lib/session";
-import {notFound} from "next/navigation";
 
 interface Routes {
   [key: string]: boolean;
@@ -20,15 +19,14 @@ export async function middleware(request: NextRequest) {
   if (session.id) {
     // publicUrls 접근 불가
     if (exist) {
-      return NextResponse.redirect(new URL("/home", request.url));
+      return NextResponse.redirect(new URL("/", request.url));
     }
 
     // 로그아웃
   } else {
     // publicUrls가 아님
     if (!exist) {
-      return NextResponse.redirect(new URL("/", request.url));
-      // notFound();
+      return NextResponse.redirect(new URL("/log-in", request.url));
     }
   }
 }
