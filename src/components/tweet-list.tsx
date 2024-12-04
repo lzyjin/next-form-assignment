@@ -18,7 +18,7 @@ export default function TweetList({initialTweets, totalCount}: TweetListProps) {
 
   const handleMoreTweets = async () => {
     const newTweets = await getMoreTweets(page + 1);
-    console.log(newTweets);
+    // console.log(newTweets);
 
     if (newTweets.length === 0) {
       setIsLastPage(true);
@@ -29,7 +29,7 @@ export default function TweetList({initialTweets, totalCount}: TweetListProps) {
     setPage(prev => prev + 1);
   };
 
-  console.log(totalCount);
+  // console.log(totalCount);
 
   return (
     <div>

@@ -2,6 +2,7 @@ import {db} from "@/lib/db";
 import {TWEET_PAGE} from "@/lib/constants";
 import TweetList from "@/components/tweet-list";
 import {Prisma} from "@prisma/client";
+import AddTweet from "@/components/add-tweet";
 
 async function getInitialTweets() {
   // await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -37,6 +38,7 @@ export default async function Home() {
 
   return (
     <div>
+      <AddTweet />
       <TweetList initialTweets={initialTweets} totalCount={totalCount} />
     </div>
   );

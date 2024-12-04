@@ -25,7 +25,7 @@ export default async function TweetDetail({params}: { params: {id: string}}) {
   }
 
   const tweet = await getTweet(Number(id));
-  console.log(tweet);
+  // console.log(tweet);
 
   return (
     <div>

@@ -8,7 +8,7 @@ import {createAccount} from "@/app/create-account/actions";
 
 export default function CreateAccountPage() {
   const [state, formAction] = useFormState(createAccount, null);
-  console.log(state?.fieldErrors);
+  // console.log(state?.fieldErrors);
 
   return (
     <div className="flex pt-[10vh] justify-center min-h-screen font-[family-name:var(--font-geist-sans)]">
