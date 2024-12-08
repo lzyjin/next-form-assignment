@@ -1,27 +1,25 @@
 "use client";
 
-import Input from "@/components/input";
 import {useFormState} from "react-dom";
 import {postTweet} from "@/components/add-tweet-actions";
-import Button from "@/components/button";
 
 export default function AddTweet() {
   const [state, action] = useFormState(postTweet, null);
-  // console.log(state)
-  // 등록 성공했을 때 리스트가 업데이트 되어야 하는데 바로바로 안됌. 어떻게 고치지?
 
   return (
-    <div>
-      <form action={action}>
-        <Input
+    <div className="w-full bg-white px-5 py-3 border-b border-neutral-200">
+      <form action={action} className="flex gap-2">
+        <input
           name="content"
           type="text"
-          required={true}
-          // minLength={1}
           placeholder="무슨 일이 일어나고 있나요?"
-          errors={state?.fieldErrors.content}
-        />
-        <Button text="게시하기"/>
+          required
+          minLength={1}
+          className="w-full bg-white py-2.5 px-5 outline-0 rounded-full border border-neutral-200"/>
+        <button
+          className="w-40 text-center h-12 bg-neutral-100 rounded-full font-bold disabled:bg-neutral-300 disabled:text-neutral-500">
+          게시하기
+        </button>
       </form>
     </div>
   );

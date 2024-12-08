@@ -39,6 +39,7 @@ export async function postTweet(prevState: any, formData: FormData) {
       },
     });
 
-    // console.log(newTweet);
+    // revalidatePath(`/`);
+    redirect(`/tweets/${newTweet.id}`);
   }
 }

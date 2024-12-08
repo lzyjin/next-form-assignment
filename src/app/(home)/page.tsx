@@ -14,6 +14,8 @@ async function getInitialTweets() {
     take: TWEET_PAGE,
     include: {
       user: true,
+      responses: true,
+      likes: true,
     },
   });
 

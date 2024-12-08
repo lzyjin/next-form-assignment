@@ -3,4 +3,4 @@ export const PASSWORD_REGEX = new RegExp(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(
 export const PASSWORD_MIN_LENGTH = 10;
 export const USERNAME_MIN_LENGTH = 5;
 
-export const TWEET_PAGE = 2;
+export const TWEET_PAGE = 10;

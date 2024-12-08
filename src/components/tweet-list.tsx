@@ -5,13 +5,15 @@ import {formatDate} from "@/lib/utils";
 import {useState} from "react";
 import {getMoreTweets} from "@/app/(home)/actions";
 import {initialTweetsType} from "@/app/(home)/page";
+import {ChatBubbleBottomCenterTextIcon} from "@heroicons/react/24/outline";
+import {HeartIcon as HeartIconOutline} from "@heroicons/react/24/outline";
 
 interface TweetListProps {
   initialTweets: initialTweetsType;
   totalCount: number;
 }
 
-export default function TweetList({initialTweets, totalCount}: TweetListProps) {
+export default function TweetList({initialTweets}: TweetListProps) {
   const [tweets, setTweets] = useState(initialTweets);
   const [page, setPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
@@ -36,11 +38,21 @@ export default function TweetList({initialTweets, totalCount}: TweetListProps) {
       <div className="flex flex-col gap-7">
         {
           tweets?.map(tweet => (
-            <Link href={`/tweets/${tweet.id}`} key={tweet.id}>
+            <Link href={`/tweets/${tweet.id}`} key={tweet.id} className="border-b border-neutral-200 px-5 py-3">
               <div className="">
+                <p>{tweet.user.username}</p>
                 <p>{tweet.tweet}</p>
                 <p>{formatDate(tweet.created_at)}</p>
-                <p>{tweet.user.username}</p>
+                <div className="flex items-center gap-5">
+                  <div className="flex items-center gap-1">
+                    <ChatBubbleBottomCenterTextIcon className="w-5"/>
+                    <span>{tweet?.responses.length}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <HeartIconOutline className="w-5"/>
+                    <span>{tweet?.likes.length}</span>
+                  </div>
+                </div>
               </div>
             </Link>
           ))
@@ -48,8 +60,8 @@ export default function TweetList({initialTweets, totalCount}: TweetListProps) {
       </div>
       {
         isLastPage ?
-        null :
-        <button onClick={handleMoreTweets}>다음</button>
+          null :
+          <button onClick={handleMoreTweets}>다음</button>
       }
     </div>
   );

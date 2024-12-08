@@ -12,6 +12,8 @@ export async function getMoreTweets(page: number) {
     take: TWEET_PAGE,
     include: {
       user: true,
+      responses: true,
+      likes: true,
     },
   });
 
