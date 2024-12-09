@@ -1,13 +1,6 @@
 import {EnvelopeIcon, UserIcon, KeyIcon} from "@heroicons/react/20/solid";
 import {InputHTMLAttributes} from "react";
-
-interface InputProps {
-  name: string;
-  type: string;
-  required: boolean;
-  placeholder: string;
-  errors?: string[];
-}
+import {InputProps} from "@/lib/types";
 
 export default function Input({name, errors = [], ...rest}: InputProps & InputHTMLAttributes<HTMLInputElement>) {
   return (

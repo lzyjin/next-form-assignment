@@ -1,9 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {getSession} from "@/lib/session";
-
-interface Routes {
-  [key: string]: boolean;
-}
+import {Routes} from "@/lib/types";
 
 const publicUrls: Routes = {
   // "/": true,

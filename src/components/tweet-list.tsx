@@ -3,15 +3,10 @@
 import Link from "next/link";
 import {formatDate} from "@/lib/utils";
 import {useState} from "react";
-import {getMoreTweets} from "@/app/(home)/actions";
-import {initialTweetsType} from "@/app/(home)/page";
+import {getMoreTweets} from "@/app/(nav)/(home)/actions";
 import {ChatBubbleBottomCenterTextIcon} from "@heroicons/react/24/outline";
 import {HeartIcon as HeartIconOutline} from "@heroicons/react/24/outline";
-
-interface TweetListProps {
-  initialTweets: initialTweetsType;
-  totalCount: number;
-}
+import {TweetListProps} from "@/lib/types";
 
 export default function TweetList({initialTweets}: TweetListProps) {
   const [tweets, setTweets] = useState(initialTweets);
@@ -20,18 +15,18 @@ export default function TweetList({initialTweets}: TweetListProps) {
 
   const handleMoreTweets = async () => {
     const newTweets = await getMoreTweets(page + 1);
-    // console.log(newTweets);
 
     if (newTweets.length === 0) {
       setIsLastPage(true);
+
       return;
+
     }
 
     setTweets(prev => [...prev, ...newTweets]);
+
     setPage(prev => prev + 1);
   };
-
-  // console.log(totalCount);
 
   return (
     <div>

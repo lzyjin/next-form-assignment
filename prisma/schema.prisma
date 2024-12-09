@@ -54,4 +54,7 @@ model Response {
   userId     Int
   tweet      Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
   tweetId    Int
+
+  @@index([userId])
+  @@index([tweetId])
 }

@@ -1,30 +1,24 @@
 "use server";
 
-import {z} from "zod";
 import {db} from "@/lib/db";
 import {getSession} from "@/lib/session";
 import {redirect} from "next/navigation";
+import {addTweetSchema} from "@/lib/schemas";
 
-const formSchema = z.object({
-  content: z.string({
-    required_error: "내용을 입력하세요."
-  }).trim().min(1, "한글자 이상 입력하세요."),
-});
-
-export async function postTweet(prevState: any, formData: FormData) {
+export async function postTweet(prevState: unknown, formData: FormData) {
   "use server";
 
   const data = {
     content: formData.get("content"),
   };
 
-  const result = formSchema.safeParse(data);
+  const result = addTweetSchema.safeParse(data);
   console.log(result);
 
   if (!result.success) {
     return result.error.flatten();
+
   } else {
-    console.log(result);
     const session = await getSession();
     const userId = session.id!;
 

@@ -1,9 +1,6 @@
 import {getIronSession} from "iron-session";
 import {cookies} from "next/headers";
-
-interface SessionContent {
-  id?: number;
-}
+import {SessionContent} from "@/lib/types";
 
 export async function getSession() {
   return await getIronSession<SessionContent>(cookies(), {

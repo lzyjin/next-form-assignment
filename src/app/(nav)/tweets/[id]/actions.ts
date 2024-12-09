@@ -5,7 +5,7 @@ import {db} from "@/lib/db";
 import {getSession} from "@/lib/session";
 
 export const likeTweet = async (tweetId: number) => {
-  await new Promise((r) => setTimeout(r, 5000));
+  // await new Promise((r) => setTimeout(r, 5000));
 
   try {
     const session = await getSession();
@@ -24,7 +24,7 @@ export const likeTweet = async (tweetId: number) => {
 };
 
 export const dislikeTweet = async (tweetId: number) => {
-  await new Promise((r) => setTimeout(r, 5000));
+  // await new Promise((r) => setTimeout(r, 5000));
 
   try {
     const session = await getSession();
@@ -42,4 +42,26 @@ export const dislikeTweet = async (tweetId: number) => {
   } catch (e) {
     console.log(e);
   }
+};
+
+export const getResponses = async (tweetId: number) => {
+  const responses = await db.response.findMany({
+    where: {
+      tweetId,
+    },
+    select: {
+      id: true,
+      response: true,
+      tweetId: true,
+      created_at: true,
+      user: {
+        select: {
+          id: true,
+          username: true,
+        },
+      }
+    }
+  })
+
+  return responses;
 };

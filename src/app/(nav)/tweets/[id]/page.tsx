@@ -7,10 +7,9 @@ import {ChatBubbleBottomCenterTextIcon} from "@heroicons/react/24/outline";
 import LikeButton from "@/components/like-button";
 import {unstable_cache as nextCache} from "next/cache";
 import {getSession} from "@/lib/session";
+import {getResponses} from "@/app/(nav)/tweets/[id]/actions";
 
 async function getTweet(id: number) {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
-
   const tweet = await db.tweet.findUnique({
     where: {
       id,
@@ -51,12 +50,37 @@ async function getLikeStatus(tweetId: number, userId: number) {
   };
 }
 
-function getCachedLikeStatus(postId: number, numberId: number) {
+function getCachedLikeStatus(tweetId: number, numberId: number) {
   const cachedOperation = nextCache(getLikeStatus, ["tweet-like-status"], {
-    tags: [`like-status-${postId}`],
+    tags: [`like-status-${tweetId}`],
   });
 
-  return cachedOperation(postId, numberId);
+  return cachedOperation(tweetId, numberId);
+}
+
+async function getCachedResponses(tweetId: number) {
+  const cachedResponses = nextCache(getResponses, ["tweet-responses"], {
+    tags: [`responses-${tweetId}`]
+  });
+
+  return cachedResponses(tweetId);
+}
+
+async function getUsername(userId: number) {
+  const user = await db.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      username: true,
+    }
+  });
+
+  if (user) {
+    return user.username;
+  } else {
+    return  null;
+  }
 }
 
 export default async function TweetDetail({params}: { params: {id: string}}) {
@@ -74,8 +98,12 @@ export default async function TweetDetail({params}: { params: {id: string}}) {
 
   const session = await getSession();
   const userId = session.id!;
+  const username = await getUsername(userId);
 
   const {likeCount, isLiked} = await getCachedLikeStatus(id, userId);
+
+  const responses = await getCachedResponses(id);
+  console.log(responses)
 
   return (
     <div>
@@ -98,7 +126,7 @@ export default async function TweetDetail({params}: { params: {id: string}}) {
       </div>
 
       <div className="">
-        <TweetResponseList tweetId={id} userId={userId} responses={tweet?.responses} />
+        <TweetResponseList tweetId={id} userId={userId} username={username ?? ""} responses={responses} />
       </div>
     </div>
   );

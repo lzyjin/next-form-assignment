@@ -1,13 +1,6 @@
 import {CheckBadgeIcon} from "@heroicons/react/20/solid";
 import Link from "next/link";
-
-interface SuccessMessageProps {
-    text: string;
-    link?: {
-      url: string;
-      name: string;
-    };
-}
+import {SuccessMessageProps} from "@/lib/types";
 
 export default function SuccessMessage({text, link}: SuccessMessageProps) {
   return (
