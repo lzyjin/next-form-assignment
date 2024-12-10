@@ -4,7 +4,7 @@ import Input from "@/components/input";
 import Button from "@/components/button";
 import SuccessMessage from "@/components/success-message";
 import {useFormState} from "react-dom";
-import {createAccount} from "@/app/create-account/actions";
+import {createAccount} from "@/services/user-service";
 
 export default function CreateAccountPage() {
   const [state, formAction] = useFormState(createAccount, null);

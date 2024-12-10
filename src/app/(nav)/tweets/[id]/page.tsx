@@ -1,54 +1,18 @@
-import {db} from "@/lib/db";
 import {notFound} from "next/navigation";
 import {formatDate} from "@/lib/utils";
-import Link from "next/link";
 import TweetResponseList from "@/components/tweet-response-list";
 import {ChatBubbleBottomCenterTextIcon} from "@heroicons/react/24/outline";
 import LikeButton from "@/components/like-button";
 import {unstable_cache as nextCache} from "next/cache";
 import {getSession} from "@/lib/session";
-import {getResponses} from "@/app/(nav)/tweets/[id]/actions";
-
-async function getTweet(id: number) {
-  const tweet = await db.tweet.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      user: true,
-      responses: true,
-    },
-  });
-
-  return tweet;
-}
+import {getLikeStatus, getResponses, getTweet} from "@/services/tweet-service";
+import {getLoggedInUsername} from "@/services/user-service";
+import GoBackButton from "@/components/go-back-button";
 
 const getCachedTweet = nextCache(getTweet, ["tweet-detail"], {
   tags: ["tweet-detail"],
   revalidate: 60,
 });
-
-async function getLikeStatus(tweetId: number, userId: number) {
-  const isLiked = await db.like.findUnique({
-    where: {
-      id: {
-        tweetId,
-        userId,
-      },
-    },
-  });
-
-  const likeCount = await db.like.count({
-    where: {
-      tweetId,
-    },
-  });
-
-  return {
-    likeCount,
-    isLiked: Boolean(isLiked),
-  };
-}
 
 function getCachedLikeStatus(tweetId: number, numberId: number) {
   const cachedOperation = nextCache(getLikeStatus, ["tweet-like-status"], {
@@ -66,23 +30,6 @@ async function getCachedResponses(tweetId: number) {
   return cachedResponses(tweetId);
 }
 
-async function getUsername(userId: number) {
-  const user = await db.user.findUnique({
-    where: {
-      id: userId,
-    },
-    select: {
-      username: true,
-    }
-  });
-
-  if (user) {
-    return user.username;
-  } else {
-    return  null;
-  }
-}
-
 export default async function TweetDetail({params}: { params: {id: string}}) {
   const id = Number(params.id);
 
@@ -91,24 +38,30 @@ export default async function TweetDetail({params}: { params: {id: string}}) {
   }
 
   const tweet = await getCachedTweet(id);
+  console.log(tweet);
 
   if (!tweet) {
     notFound();
   }
 
   const session = await getSession();
-  const userId = session.id!;
-  const username = await getUsername(userId);
+  const userId = session.id;
+  console.log(userId);
+
+  if (!userId) {
+    notFound();
+  }
+
+  const username = await getLoggedInUsername(userId);
 
   const {likeCount, isLiked} = await getCachedLikeStatus(id, userId);
 
   const responses = await getCachedResponses(id);
-  console.log(responses)
 
   return (
     <div>
       <div className="p-5 border-b border-neutral-200">
-        <Link href="/">&larr;</Link>
+        <GoBackButton />
       </div>
 
       <div className="p-5">

@@ -1,7 +1,7 @@
 "use client";
 
 import {useFormState} from "react-dom";
-import {postTweet} from "@/components/add-tweet-actions";
+import {postTweet} from "@/services/tweet-service";
 
 export default function AddTweet() {
   const [state, action] = useFormState(postTweet, null);

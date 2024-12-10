@@ -3,8 +3,8 @@
 import {HeartIcon as HeartIconOutline} from "@heroicons/react/24/outline";
 import {HeartIcon} from "@heroicons/react/24/solid";
 import { useOptimistic } from 'react';
-import {dislikeTweet, likeTweet} from "@/app/(nav)/tweets/[id]/actions";
 import {LikeButtonProps} from "@/lib/types";
+import {dislikeTweet, likeTweet} from "@/services/tweet-service";
 
 export default function LikeButton({isLiked, likeCount, tweetId}: LikeButtonProps) {
   const [state, updateFn] = useOptimistic({isLiked, likeCount}, (previousState) => {

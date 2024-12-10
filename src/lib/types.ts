@@ -1,5 +1,3 @@
-import {initialTweetsType} from "@/app/(nav)/(home)/page";
-
 export interface Routes {
   [key: string]: boolean;
 }
@@ -24,12 +22,30 @@ export interface InputProps {
   errors?: string[];
 }
 
+interface Tweet {
+  id: number;
+  tweet: string;
+  created_at: Date;
+  updated_at: Date;
+  userId: number;
+  likes: {
+    created_at: Date;
+  }[];
+  responses: {
+    id: number;
+  }[];
+  user: {
+    username: string;
+  };
+}
+
 export interface TweetListProps {
-  initialTweets: initialTweetsType;
+  initialTweets: Tweet[];
   totalCount: number;
 }
 
 interface TweetResponseUser {
+  id: number;
   username: string;
 }
 
@@ -37,8 +53,8 @@ export interface TweetResponse {
   id: number;
   created_at: Date;
   updated_at: Date;
-  userId: number;
   response: string;
+  userId: number;
   tweetId: number;
   user: TweetResponseUser;
 }
@@ -62,9 +78,15 @@ export interface SessionContent {
 
 export interface ProfileInfoProps {
   username: string;
+  bio: string;
   createdAt: Date;
 }
 
 export interface ProfileTabsProps {
   username: string;
+}
+export interface EditUserInfoProps {
+  username: string;
+  email: string;
+  bio: string | null;
 }

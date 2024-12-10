@@ -4,23 +4,27 @@ import Link from "next/link";
 import {ChatBubbleBottomCenterTextIcon, HeartIcon as HeartIconOutline} from "@heroicons/react/24/outline";
 import {getSession} from "@/lib/session";
 import ProfileInfo from "@/components/profile-info";
-import {getTweets, getUser} from "@/services/profile-service";
+import {getUserTweets, getUserProfile} from "@/services/profile-service";
 import ProfileTabs from "@/components/profile-tabs";
 
 export default async function Profile({params}: {params: {username: string}}) {
   const session = await getSession();
   const userId = session.id!;
-  const username = params.username;
-  const user = await getUser(userId);
-  const tweets = await getTweets(userId);
+  const username = decodeURIComponent(params.username);
+
+  if (!userId) {
+    notFound();
+  }
+  const user = await getUserProfile(userId);
+  const tweets = await getUserTweets(userId);
 
   if (!user) {
     notFound();
   }
 
   return (
-    <div>
-      <ProfileInfo username={username} createdAt={user.created_at} />
+    <div className="w-full">
+      <ProfileInfo username={username} bio={user.bio ?? ""} createdAt={user.created_at} />
       <div>
         <ProfileTabs username={username} />
         <div>

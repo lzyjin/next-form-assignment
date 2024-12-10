@@ -2,8 +2,8 @@
 
 import {db} from "@/lib/db";
 
-export async function getUser(userId: number) {
-  const user = db.user.findUnique({
+export async function getUserProfile(userId: number) {
+  const user = await db.user.findUnique({
     where: {
       id: userId,
     },
@@ -19,8 +19,8 @@ export async function getUser(userId: number) {
   return user;
 }
 
-export async function getTweets(userId: number) {
-  const tweets = db.tweet.findMany({
+export async function getUserTweets(userId: number) {
+  const tweets = await db.tweet.findMany({
     where: {
       userId,
     },
@@ -31,4 +31,40 @@ export async function getTweets(userId: number) {
   });
 
   return tweets;
+}
+
+export async function getUserResponses(userId: number) {
+  const responses = await db.response.findMany({
+    where: {
+      userId,
+    },
+  });
+
+  return responses;
+}
+
+export async function getUserLikes(userId: number) {
+  const likes = await db.like.findMany({
+    where: {
+      userId,
+    },
+    select: {
+      userId: true,
+      tweetId: true,
+      tweet: {
+        select: {
+          tweet: true,
+          created_at: true,
+          user: {
+            select: {
+              id: true,
+              username: true,
+            }
+          },
+        }
+      }
+    }
+  });
+
+  return likes;
 }

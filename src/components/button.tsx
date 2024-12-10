@@ -8,7 +8,8 @@ export default function Button({text}: ButtonProps) {
 
   return (
     <button
-      className="w-full text-center h-12 bg-neutral-100 rounded-full font-bold disabled:bg-neutral-300 disabled:text-neutral-500"
+      className="w-full text-center h-12 bg-pink-500 text-white rounded-full font-bold
+      disabled:bg-neutral-300 disabled:text-neutral-500"
       disabled={pending}
     >
       {pending ? "Loading..." : text}

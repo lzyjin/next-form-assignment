@@ -3,10 +3,10 @@
 import Link from "next/link";
 import {formatDate} from "@/lib/utils";
 import {useState} from "react";
-import {getMoreTweets} from "@/app/(nav)/(home)/actions";
 import {ChatBubbleBottomCenterTextIcon} from "@heroicons/react/24/outline";
 import {HeartIcon as HeartIconOutline} from "@heroicons/react/24/outline";
 import {TweetListProps} from "@/lib/types";
+import {getMoreTweets} from "@/services/tweet-service";
 
 export default function TweetList({initialTweets}: TweetListProps) {
   const [tweets, setTweets] = useState(initialTweets);

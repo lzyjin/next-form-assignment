@@ -1,11 +1,20 @@
 import Link from "next/link";
 import {getSession} from "@/lib/session";
 import {HomeIcon, UserCircleIcon} from "@heroicons/react/24/solid";
-import {MagnifyingGlassIcon, MoonIcon, SunIcon, HeartIcon} from "@heroicons/react/24/outline";
+import {HomeIcon as HomeIconOutline, MagnifyingGlassIcon, MoonIcon, SunIcon, HeartIcon, UserIcon as UserIconOutline} from "@heroicons/react/24/outline";
+import {notFound} from "next/navigation";
+import {getLoggedInUsername} from "@/services/user-service";
+import {UserIcon} from "@heroicons/react/20/solid";
 
 export default async function NavBar() {
   const session = await getSession();
   const userId = session.id;
+
+  if (!userId) {
+    notFound();
+  }
+
+  const username = await getLoggedInUsername(userId);
 
   return (
     <div className="fixed shrink-0 border-l border-r border-neutral-200 w-20 h-screen bg-white
@@ -16,7 +25,8 @@ export default async function NavBar() {
         <ul className="flex flex-col justify-center items-center gap-7">
           <li>
             <Link href="/">
-              <HomeIcon className="text-neutral-400 w-7"/>
+              {/*<HomeIcon className="text-neutral-400 w-7"/>*/}
+              <HomeIconOutline className="text-neutral-400 w-7"/>
             </Link>
           </li>
           <li>
@@ -30,6 +40,11 @@ export default async function NavBar() {
             </Link>
           </li>
           <li>
+            <Link href={`/users/${username}`}>
+              <UserIconOutline className="text-neutral-400 w-7"/>
+            </Link>
+          </li>
+          <li>
             <button>
               <MoonIcon className="text-neutral-400 w-7"/>
               {/*<SunIcon className="text-neutral-400 w-8" />*/}
@@ -38,7 +53,7 @@ export default async function NavBar() {
         </ul>
       </div>
       <div>
-        <Link href={`/users/${userId}`}>
+        <Link href={``} className={``}>
           <UserCircleIcon className="text-neutral-400 w-7"/>
         </Link>
       </div>

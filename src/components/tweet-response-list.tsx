@@ -2,33 +2,34 @@
 
 import {formatDate} from "@/lib/utils";
 import {useOptimistic, useRef} from "react";
-import {addTweetResponse} from "@/components/add-tweet-response-action";
 import {useFormState} from "react-dom";
 import {tweetResponseSchema} from "@/lib/schemas";
 import {TweetResponseListProps} from "@/lib/types";
+import {addTweetResponse} from "@/services/tweet-service";
 
 export default function TweetResponseList({tweetId, userId, username, responses}: TweetResponseListProps) {
-  const ref = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const [optimisticState, addOptimistic] = useOptimistic(
     responses,
     (currentState, optimisticValue: string) => [
         ...currentState,
       {
+        id: 0,
         created_at: new Date(),
         updated_at: new Date(),
-        id: 0,
-        tweetId,
-        userId,
         response: optimisticValue,
+        userId,
+        tweetId,
         user: {
+          id: userId,
           username,
         }
       },
     ]
   );
 
-  async function formAction(_: unknown, formData: FormData) {
+  const formAction = async (_: unknown, formData: FormData) => {
     const response = formData.get("response");
 
     const result = tweetResponseSchema.safeParse(response);
@@ -38,18 +39,19 @@ export default function TweetResponseList({tweetId, userId, username, responses}
 
     } else {
       addOptimistic(result.data);
-
+      formRef.current!.reset();
       await addTweetResponse(formData);
     }
-  }
+  };
 
   const [state, action] = useFormState(formAction, null);
 
   return (
     <>
       <div className="w-full bg-white px-5 py-3">
-        <form action={action} className="flex gap-2" ref={ref}>
+        <form action={action} className="flex gap-2" ref={formRef}>
           <input name="tweetId" type="hidden" value={tweetId}/>
+          <input name="userId" type="hidden" value={userId}/>
           <div>
             <input
               name="response"
