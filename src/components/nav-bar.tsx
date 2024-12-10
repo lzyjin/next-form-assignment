@@ -1,10 +1,12 @@
 import Link from "next/link";
 import {getSession} from "@/lib/session";
-import {HomeIcon, UserCircleIcon} from "@heroicons/react/24/solid";
-import {HomeIcon as HomeIconOutline, MagnifyingGlassIcon, MoonIcon, SunIcon, HeartIcon, UserIcon as UserIconOutline} from "@heroicons/react/24/outline";
+// import {HomeIcon} from "@heroicons/react/24/solid";
+import {UserCircleIcon} from "@heroicons/react/24/solid";
+// import {SunIcon} from "@heroicons/react/24/outline";
+import {HomeIcon as HomeIconOutline, MagnifyingGlassIcon, MoonIcon, HeartIcon, UserIcon as UserIconOutline} from "@heroicons/react/24/outline";
 import {notFound} from "next/navigation";
 import {getLoggedInUsername} from "@/services/user-service";
-import {UserIcon} from "@heroicons/react/20/solid";
+// import {UserIcon} from "@heroicons/react/20/solid";
 
 export default async function NavBar() {
   const session = await getSession();

@@ -183,12 +183,7 @@ export async function getResponses(tweetId: number) {
   return responses;
 };
 
-// export async function handleAddTweetResponse(_: unknown, formData: FormData) {
-//
-// }
-
 export const addTweetResponse = async (formData: FormData) => {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
   const response= formData.get("response");
   const tweetId = formData.get("tweetId");
   const userId = formData.get("userId");
@@ -200,10 +195,7 @@ export const addTweetResponse = async (formData: FormData) => {
 
   } else {
     try {
-      // const session = await getSession();
-      // const userId = session.id!;
-
-      const newResponse = await db.response.create({
+      await db.response.create({
         data: {
           response: result.data,
           tweetId: Number(tweetId),
@@ -237,7 +229,6 @@ export async function postTweet(prevState: unknown, formData: FormData) {
     const session = await getSession();
     const userId = session.id!;
 
-    // db에 저장
     const newTweet = await db.tweet.create({
       data: {
         tweet: result.data.content,

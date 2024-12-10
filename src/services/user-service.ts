@@ -164,10 +164,11 @@ export async function editUserInfo(_: unknown, formData: FormData) {
       },
       select: {
         id: true,
+        username: true,
       }
     });
 
-    redirect(`/users/${result.data.username}`);
+    redirect(`/users/${updatedUser.username}`);
 
   }
 }
@@ -192,7 +193,7 @@ export async function editUserPassword(_: unknown, formData: FormData) {
     console.log(result.data);
     console.log(hashedPassword);
 
-    const updatedUser = await db.user.update({
+    await db.user.update({
       where: {
         id: userId,
       },

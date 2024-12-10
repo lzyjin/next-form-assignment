@@ -16,6 +16,9 @@ export default function AddTweet() {
           required
           minLength={1}
           className="w-full bg-white py-2.5 px-5 outline-0 rounded-full border border-neutral-200"/>
+        {
+          state?.fieldErrors.content && <p className="text-red-600 my-1 text-sm">{state?.fieldErrors.content}</p>
+        }
         <button
           className="w-40 text-center h-12 bg-neutral-100 rounded-full font-bold disabled:bg-neutral-300 disabled:text-neutral-500">
           게시하기
