@@ -172,6 +172,31 @@ export async function searchUsers(query: string) {
         contains: query,
       },
     },
+    take: TWEET_PAGE,
+    orderBy: {
+      created_at: "desc",
+    },
+    select: {
+      id: true,
+      bio: true,
+      username: true,
+      created_at: true,
+      email: true,
+    }
+  });
+
+  return users;
+}
+
+export async function moreSearchUsers(query: string, page: number) {
+  const users = db.user.findMany({
+    where: {
+      username: {
+        contains: query,
+      },
+    },
+    take: TWEET_PAGE,
+    skip: TWEET_PAGE * page,
     orderBy: {
       created_at: "desc",
     },

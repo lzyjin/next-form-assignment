@@ -1,16 +1,25 @@
 "use client";
 
-import {SearchTweetResultProps} from "@/lib/types";
-import {moreSearchTweets} from "@/services/search-service";
+import {SearchTweetResultProps, Tweet} from "@/lib/types";
+import {moreSearchTweets, searchTweets} from "@/services/search-service";
 import TweetItem from "@/components/tweet-item";
 import {useEffect, useRef, useState} from "react";
 
-export default function SearchResultTweet({query, initialTweets, userId}: SearchTweetResultProps) {
-  const [tweets, setTweets] = useState(initialTweets);
+export default function SearchResultTweet({query, userId}: SearchTweetResultProps) {
+  const [tweets, setTweets] = useState<Tweet[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
   const trigger = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    async function setInitialTweets() {
+      const initialTweets = await searchTweets(query);
+      setTweets(initialTweets);
+    }
+
+    setInitialTweets();
+  }, [query]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -47,31 +56,18 @@ export default function SearchResultTweet({query, initialTweets, userId}: Search
 
   }, [page]);
 
-  const handleMoreTweets = async () => {
-    const newTweets = [...await moreSearchTweets(query, page + 1)];
-
-    if (newTweets.length === 0) {
-      setIsLastPage(true);
-      return;
-    }
-
-    setTweets(prev => [...prev, ...newTweets]);
-
-    setPage(prev => prev + 1);
-  };
-
   return (
     <div>
+      { tweets.length === 0 && <p className="text-center mt-10">검색 결과가 없습니다.</p> }
       {
         tweets?.map(tweet => (
-          <TweetItem key={tweet.id} tweet={tweet} userId={userId} />
+          <TweetItem key={tweet.id} tweet={tweet} userId={userId} searchKeyword={query} />
         ))
       }
       {
         !isLastPage ?
-          <span ref={trigger} className="opacity-0">{ isLoading ? "Loading..." : "Load more" }</span>
-          :
-          null
+        <span ref={trigger} className="opacity-0">{ isLoading ? "Loading..." : "Load more" }</span> :
+        null
       }
     </div>
   );

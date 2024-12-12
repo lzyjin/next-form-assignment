@@ -11,16 +11,32 @@ import {Tweet} from "@/lib/types";
 import {useEffect, useState} from "react";
 import TweetMenuSection from "@/components/tweet-menu-section";
 
-export default function TweetItem({tweet, userId}: {tweet: Tweet, userId: number}) {
+export default function TweetItem({tweet, userId, searchKeyword}: {tweet: Tweet, userId: number, searchKeyword?: string}) {
   const [isLiked, setIsLiked] = useState(false);
+  const [searchResultContent, setSearchResultContent] = useState<string[]>([]);
 
   useEffect(() => {
+    setSearchResultContent([]);
+
     tweet.likes.map(like => {
       if (like.userId === userId) {
         setIsLiked(true);
       }
     });
   }, []);
+
+  useEffect(() => {
+    setSearchResultContent([]);
+
+    if (searchKeyword) {
+      const keywordIndex = tweet.tweet.indexOf(searchKeyword);
+      const tweetContentArr = tweet.tweet.split("");
+      const frontArr = tweetContentArr.slice(0, keywordIndex);
+      const backArr = tweetContentArr.slice(keywordIndex + searchKeyword.length);
+
+      setSearchResultContent(p => [frontArr.join(""), searchKeyword, backArr.join("")])
+    }
+  }, [searchKeyword]);
 
   return (
     <div className="relative">
@@ -30,7 +46,15 @@ export default function TweetItem({tweet, userId}: {tweet: Tweet, userId: number
           <p className="font-bold text-black">{tweet.user.username}</p>
           <p className="text-sm text-neutral-600">{formatDate(tweet.created_at.toString())}</p>
         </div>
-        <p className="line-clamp-10 whitespace-pre-wrap mb-3">{tweet.tweet}</p>
+        <p className="line-clamp-10 whitespace-pre-wrap mb-3">
+          {
+            searchResultContent.length ?
+            searchResultContent.map((t, i) => (
+              <span key={i} className={`${i === 1 ? "font-bold bg-amber-200" : ""}`}>{t}</span>
+            )) :
+            tweet.tweet
+          }
+        </p>
         <div className="flex items-center gap-5">
           <div className="flex items-center gap-1">
             <ChatBubbleBottomCenterTextIcon className="w-5"/>
@@ -39,8 +63,8 @@ export default function TweetItem({tweet, userId}: {tweet: Tweet, userId: number
           <div className="flex items-center gap-1">
             {
               isLiked ?
-                <HeartIcon className="w-5 text-amber-300"/> :
-                <HeartIconOutline className="w-5"/>
+              <HeartIcon className="w-5 text-amber-300"/> :
+              <HeartIconOutline className="w-5"/>
             }
             <span className={`${isLiked ? "text-amber-300" : ""}`}>{tweet?.likes.length}</span>
           </div>

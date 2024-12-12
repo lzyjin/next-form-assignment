@@ -112,11 +112,9 @@ export interface SearchProps {
 
 export interface SearchTweetResultProps {
   query: string;
-  initialTweets: Tweet[];
   userId: number;
 }
 
 export interface SearchUserResultProps {
   query: string;
-  initialUsers: User[];
 }
