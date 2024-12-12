@@ -23,6 +23,7 @@ export async function getInitialTweets() {
       likes: {
         select: {
           created_at: true,
+          userId: true,
         }
       },
       responses: {
@@ -59,6 +60,7 @@ export async function getMoreTweets(page: number) {
       likes: {
         select: {
           created_at: true,
+          userId: true,
         }
       },
       responses: {
@@ -242,4 +244,17 @@ export async function postTweet(prevState: unknown, formData: FormData) {
     // revalidatePath(`/`);
     redirect(`/tweets/${newTweet.id}`);
   }
+}
+
+export async function deleteTweet(tweetId: number) {
+  const tweet = await db.tweet.delete({
+    where: {
+      id: tweetId,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  return tweet;
 }

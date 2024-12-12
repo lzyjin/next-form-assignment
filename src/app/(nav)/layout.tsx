@@ -1,31 +1,21 @@
 import NavBar from "@/components/nav-bar";
-// import {getSession} from "@/lib/session";
-// import {getLoggedInUsername} from "@/services/user-service";
-// import {createContext} from "react";
-// import {notFound} from "next/navigation";
+import {getSession} from "@/lib/session";
+import {getLoggedInUsername} from "@/services/user-service";
 
 export default async function NavLayout(
   {children}: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const session = await getSession();
-  // const userId = session.id;
-  //
-  // if (!userId) {
-  //   notFound();
-  // }
-  //
-  // const username = await getLoggedInUsername(userId) ?? "";
-  // const UsernameContext = createContext<string>(username);
+  const session = await getSession();
+  const userId = session.id!;
+  const username = await getLoggedInUsername(userId) ?? "";
 
   return (
-    // <UsernameContext.Provider value={username}>
       <div>
-        <NavBar/>
-        <div className="h-full pl-20 border-r border-neutral-200">
+        <NavBar loggedInUsername={username} />
+        <div className="h-full pl-20">
           {children}
         </div>
       </div>
-    // </UsernameContext.Provider>
   );
 }

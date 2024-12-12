@@ -1,22 +1,15 @@
+"use client";
+
 import Link from "next/link";
-import {getSession} from "@/lib/session";
-// import {HomeIcon} from "@heroicons/react/24/solid";
+import {HomeIcon} from "@heroicons/react/24/solid";
 import {UserCircleIcon} from "@heroicons/react/24/solid";
-// import {SunIcon} from "@heroicons/react/24/outline";
+import {SunIcon} from "@heroicons/react/24/outline";
 import {HomeIcon as HomeIconOutline, MagnifyingGlassIcon, MoonIcon, HeartIcon, UserIcon as UserIconOutline} from "@heroicons/react/24/outline";
-import {notFound} from "next/navigation";
-import {getLoggedInUsername} from "@/services/user-service";
-// import {UserIcon} from "@heroicons/react/20/solid";
+import {usePathname} from "next/navigation";
+import {UserIcon} from "@heroicons/react/24/solid";
 
-export default async function NavBar() {
-  const session = await getSession();
-  const userId = session.id;
-
-  if (!userId) {
-    notFound();
-  }
-
-  const username = await getLoggedInUsername(userId);
+export default function NavBar({loggedInUsername}: {loggedInUsername: string}) {
+  const pathname = decodeURIComponent(usePathname());
 
   return (
     <div className="fixed shrink-0 border-l border-r border-neutral-200 w-20 h-screen bg-white
@@ -27,23 +20,32 @@ export default async function NavBar() {
         <ul className="flex flex-col justify-center items-center gap-7">
           <li>
             <Link href="/">
-              {/*<HomeIcon className="text-neutral-400 w-7"/>*/}
-              <HomeIconOutline className="text-neutral-400 w-7"/>
+              {
+                pathname === "/" ?
+                <HomeIcon className="text-neutral-400 w-7"/> :
+                <HomeIconOutline className="text-neutral-400 w-7"/>
+              }
             </Link>
           </li>
           <li>
             <Link href="/search">
-              <MagnifyingGlassIcon className="text-neutral-400 w-7"/>
+              <MagnifyingGlassIcon className={`text-neutral-400 w-7 ${ pathname.includes("/search") && "stroke-[3px]" }`}/>
             </Link>
           </li>
           <li>
             <Link href="">
-              <HeartIcon className="text-neutral-400 w-7"/>
+              {
+                <HeartIcon className="text-neutral-400 w-7"/>
+              }
             </Link>
           </li>
           <li>
-            <Link href={`/users/${username}`}>
-              <UserIconOutline className="text-neutral-400 w-7"/>
+            <Link href={`/users/${loggedInUsername}`}>
+              {
+                pathname === `/users/${loggedInUsername}` ?
+                <UserIcon className="text-neutral-400 w-7" /> :
+                <UserIconOutline className="text-neutral-400 w-7" />
+              }
             </Link>
           </li>
           <li>

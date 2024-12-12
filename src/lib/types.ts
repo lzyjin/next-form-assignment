@@ -14,6 +14,14 @@ export interface ButtonProps {
   text: string;
 }
 
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  bio: string | null;
+  created_at: Date;
+}
+
 export interface InputProps {
   name: string;
   type: string;
@@ -22,7 +30,7 @@ export interface InputProps {
   errors?: string[];
 }
 
-interface Tweet {
+export interface Tweet {
   id: number;
   tweet: string;
   created_at: Date;
@@ -30,6 +38,7 @@ interface Tweet {
   userId: number;
   likes: {
     created_at: Date;
+    userId: number;
   }[];
   responses: {
     id: number;
@@ -41,7 +50,7 @@ interface Tweet {
 
 export interface TweetListProps {
   initialTweets: Tweet[];
-  totalCount: number;
+  userId: number;
 }
 
 interface TweetResponseUser {
@@ -80,13 +89,34 @@ export interface ProfileInfoProps {
   username: string;
   bio: string;
   createdAt: Date;
+  isLoggedInUsersProfile: boolean;
 }
 
 export interface ProfileTabsProps {
   username: string;
+  isLoggedInUsersProfile: boolean;
 }
+
 export interface EditUserInfoProps {
   username: string;
   email: string;
   bio: string | null;
+}
+
+export interface SearchProps {
+  searchParams: {
+    query?: string;
+    filter?: string;
+  }
+}
+
+export interface SearchTweetResultProps {
+  query: string;
+  initialTweets: Tweet[];
+  userId: number;
+}
+
+export interface SearchUserResultProps {
+  query: string;
+  initialUsers: User[];
 }

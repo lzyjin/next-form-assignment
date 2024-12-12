@@ -6,16 +6,18 @@ import {getSession} from "@/lib/session";
 import ProfileInfo from "@/components/profile-info";
 import {getUserTweets, getUserProfile} from "@/services/profile-service";
 import ProfileTabs from "@/components/profile-tabs";
+import {getLoggedInUsername} from "@/services/user-service";
 
 export default async function Profile({params}: {params: {username: string}}) {
   const session = await getSession();
   const userId = session.id!;
   const username = decodeURIComponent(params.username);
+  const isLoggedInUsersProfile = (await getLoggedInUsername(userId)) === username;
 
   if (!userId) {
     notFound();
   }
-  const user = await getUserProfile(userId);
+  const user = await getUserProfile(username);
   const tweets = await getUserTweets(userId);
 
   if (!user) {
@@ -24,16 +26,24 @@ export default async function Profile({params}: {params: {username: string}}) {
 
   return (
     <div className="w-full">
-      <ProfileInfo username={username} bio={user.bio ?? ""} createdAt={user.created_at} />
+      <ProfileInfo
+        username={user.username}
+        bio={user.bio ?? ""}
+        createdAt={user.created_at}
+        isLoggedInUsersProfile={isLoggedInUsersProfile}
+      />
       <div>
-        <ProfileTabs username={username} />
+        <ProfileTabs
+          username={user.username}
+          isLoggedInUsersProfile={isLoggedInUsersProfile}
+        />
         <div>
           {
             tweets.map((tweet) => (
               <Link href={`/tweets/${tweet.id}`} key={tweet.id} className="">
                 <p>
-                  <strong>{username}</strong>
-                  <span>{formatDate(tweet.created_at)}</span>
+                  <strong>{user.username}</strong>
+                  <span>{formatDate(tweet.created_at.toString())}</span>
                 </p>
                 <p>{tweet.tweet}</p>
                 <div className="flex items-center gap-5">

@@ -2,10 +2,10 @@
 
 import {db} from "@/lib/db";
 
-export async function getUserProfile(userId: number) {
+export async function getUserProfile(username: string) {
   const user = await db.user.findUnique({
     where: {
-      id: userId,
+      username,
     },
     include: {
       tweets: {

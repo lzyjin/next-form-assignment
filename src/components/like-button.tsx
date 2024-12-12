@@ -31,8 +31,8 @@ export default function LikeButton({isLiked, likeCount, tweetId}: LikeButtonProp
       {
         state.isLiked ?
           <>
-            <HeartIcon className="w-5 text-pink-500" />
-            <span className="text-pink-500">{state.likeCount}</span>
+            <HeartIcon className="w-5 text-amber-300" />
+            <span className="text-amber-300">{state.likeCount}</span>
           </> :
           <>
             <HeartIconOutline className="w-5" />

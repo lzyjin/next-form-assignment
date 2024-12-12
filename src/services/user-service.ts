@@ -120,12 +120,7 @@ export async function getLoggedInUsername(userId: number) {
       username: true,
     }
   });
-
-  if (user) {
-    return user.username;
-  } else {
-    return  null;
-  }
+  return user?.username;
 }
 
 export async function getUserInfo(userId: number) {

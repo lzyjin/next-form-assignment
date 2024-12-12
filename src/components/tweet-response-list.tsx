@@ -78,7 +78,7 @@ export default function TweetResponseList({tweetId, userId, username, responses}
             <div key={response.id} className="border-b border-neutral-200 py-3 px-5">
               <p>{response.user.username}</p>
               <p>{response.response}</p>
-              <p>{formatDate(response.created_at)}</p>
+              <p>{formatDate(response.created_at.toString())}</p>
             </div>
           ))
         }

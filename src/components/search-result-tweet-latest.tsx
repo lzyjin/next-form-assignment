@@ -1,11 +1,11 @@
 "use client";
 
-import {useEffect, useRef, useState} from "react";
-import {TweetListProps} from "@/lib/types";
-import {getMoreTweets} from "@/services/tweet-service";
+import {SearchTweetResultProps} from "@/lib/types";
+import {moreSearchTweetsLatest} from "@/services/search-service";
 import TweetItem from "@/components/tweet-item";
+import {useEffect, useRef, useState} from "react";
 
-export default function TweetList({initialTweets, userId}: TweetListProps) {
+export default function SearchResultTweetLatest({query, initialTweets, userId}: SearchTweetResultProps) {
   const [tweets, setTweets] = useState(initialTweets);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(0);
@@ -20,7 +20,7 @@ export default function TweetList({initialTweets, userId}: TweetListProps) {
         if (element.isIntersecting && trigger.current) {
           observer.unobserve(trigger.current);
           setIsLoading(true);
-          const newTweets = await getMoreTweets(page + 1);
+          const newTweets = await moreSearchTweetsLatest(query, page + 1);
 
           if (newTweets.length !== 0) {
             setPage(prev => prev + 1);
@@ -48,7 +48,7 @@ export default function TweetList({initialTweets, userId}: TweetListProps) {
   }, [page]);
 
   const handleMoreTweets = async () => {
-    const newTweets = await getMoreTweets(page + 1);
+    const newTweets = [...await moreSearchTweetsLatest(query, page + 1)];
 
     if (newTweets.length === 0) {
       setIsLastPage(true);
@@ -62,18 +62,16 @@ export default function TweetList({initialTweets, userId}: TweetListProps) {
 
   return (
     <div>
-      <div className="flex flex-col">
-        {
-          tweets?.map(tweet => (
-            <TweetItem key={tweet.id} tweet={tweet} userId={userId} />
-          ))
-        }
-      </div>
+      {
+        tweets?.map(tweet => (
+          <TweetItem key={tweet.id} tweet={tweet} userId={userId} />
+        ))
+      }
       {
         !isLastPage ?
-        <span ref={trigger} className="opacity-0">{ isLoading ? "Loading..." : "Load more" }</span>
-        :
-        null
+          <span ref={trigger} className="opacity-0">{ isLoading ? "Loading..." : "Load more" }</span>
+          :
+          null
       }
     </div>
   );

@@ -38,7 +38,6 @@ export default async function TweetDetail({params}: { params: {id: string}}) {
   }
 
   const tweet = await getCachedTweet(id);
-  console.log(tweet);
 
   if (!tweet) {
     notFound();
@@ -46,7 +45,6 @@ export default async function TweetDetail({params}: { params: {id: string}}) {
 
   const session = await getSession();
   const userId = session.id;
-  console.log(userId);
 
   if (!userId) {
     notFound();
@@ -65,9 +63,9 @@ export default async function TweetDetail({params}: { params: {id: string}}) {
       </div>
 
       <div className="p-5">
-        <p>{tweet!.user.username}</p>
-        <p>{tweet!.tweet}</p>
-        <p>{formatDate(tweet!.created_at)}</p>
+        <p>{tweet.user.username}</p>
+        <p className="whitespace-pre-wrap">{tweet.tweet}</p>
+        <p>{formatDate(tweet.created_at.toString())}</p>
       </div>
 
       <div className="flex items-center gap-5 py-3 px-5 border-t border-b border-neutral-200">
