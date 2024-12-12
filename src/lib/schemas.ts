@@ -107,6 +107,18 @@ export const addTweetSchema = z.object({
     .max(200, "최대 200글자까지 입력할 수 있습니다."),
 });
 
+export const editTweetSchema = z.object({
+  content: z
+    .string({
+      required_error: "내용을 입력하세요."
+    })
+    .trim()
+    .min(1, "한글자 이상 입력하세요.")
+    .max(200, "최대 200글자까지 입력할 수 있습니다."),
+  tweetId: z
+    .number(),
+});
+
 export const editUserInfoSchema = z.object({
   username: z
     .string()

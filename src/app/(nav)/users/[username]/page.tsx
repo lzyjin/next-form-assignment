@@ -1,12 +1,10 @@
 import {notFound} from "next/navigation";
-import {formatDate} from "@/lib/utils";
-import Link from "next/link";
-import {ChatBubbleBottomCenterTextIcon, HeartIcon as HeartIconOutline} from "@heroicons/react/24/outline";
 import {getSession} from "@/lib/session";
 import ProfileInfo from "@/components/profile-info";
 import {getUserTweets, getUserProfile} from "@/services/profile-service";
 import ProfileTabs from "@/components/profile-tabs";
 import {getLoggedInUsername} from "@/services/user-service";
+import TweetItem from "@/components/tweet-item";
 
 export default async function Profile({params}: {params: {username: string}}) {
   const session = await getSession();
@@ -40,23 +38,7 @@ export default async function Profile({params}: {params: {username: string}}) {
         <div>
           {
             tweets.map((tweet) => (
-              <Link href={`/tweets/${tweet.id}`} key={tweet.id} className="">
-                <p>
-                  <strong>{user.username}</strong>
-                  <span>{formatDate(tweet.created_at.toString())}</span>
-                </p>
-                <p>{tweet.tweet}</p>
-                <div className="flex items-center gap-5">
-                  <div className="flex items-center gap-1">
-                    <ChatBubbleBottomCenterTextIcon className="w-5"/>
-                    <span>{tweet?.responses.length}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <HeartIconOutline className="w-5"/>
-                    <span>{tweet?.likes.length}</span>
-                  </div>
-                </div>
-              </Link>
+              <TweetItem key={tweet.id} tweet={tweet} userId={userId} />
             ))
           }
         </div>

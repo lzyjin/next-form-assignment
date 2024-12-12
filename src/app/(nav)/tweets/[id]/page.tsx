@@ -8,11 +8,16 @@ import {getSession} from "@/lib/session";
 import {getLikeStatus, getResponses, getTweet} from "@/services/tweet-service";
 import {getLoggedInUsername} from "@/services/user-service";
 import GoBackButton from "@/components/go-back-button";
+import TweetMenuSection from "@/components/tweet-menu-section";
 
-const getCachedTweet = nextCache(getTweet, ["tweet-detail"], {
-  tags: ["tweet-detail"],
-  revalidate: 60,
-});
+function getCachedTweet(id: number) {
+  const cachedTweet = nextCache(getTweet, ["tweet-detail"], {
+    tags: ["tweet-detail", `tweet-detail-${id}`],
+    // revalidate: 60,
+  });
+
+  return cachedTweet(id);
+}
 
 function getCachedLikeStatus(tweetId: number, numberId: number) {
   const cachedOperation = nextCache(getLikeStatus, ["tweet-like-status"], {
@@ -62,10 +67,14 @@ export default async function TweetDetail({params}: { params: {id: string}}) {
         <GoBackButton />
       </div>
 
-      <div className="p-5">
-        <p>{tweet.user.username}</p>
+      <div className="relative p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <p className="font-bold text-black">{tweet.user.username}</p>
+          <p className="text-sm text-neutral-600">{formatDate(tweet.created_at.toString())}</p>
+        </div>
         <p className="whitespace-pre-wrap">{tweet.tweet}</p>
-        <p>{formatDate(tweet.created_at.toString())}</p>
+
+        <TweetMenuSection userId={userId} tweetUserId={tweet.userId} tweetId={tweet.id}/>
       </div>
 
       <div className="flex items-center gap-5 py-3 px-5 border-t border-b border-neutral-200">

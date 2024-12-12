@@ -24,10 +24,32 @@ export async function getUserTweets(userId: number) {
     where: {
       userId,
     },
-    include: {
-      responses: true,
-      likes: true,
-    }
+    orderBy: {
+      created_at: "desc",
+    },
+    select: {
+      id: true,
+      tweet: true,
+      created_at: true,
+      updated_at: true,
+      userId: true,
+      likes: {
+        select: {
+          created_at: true,
+          userId: true,
+        }
+      },
+      responses: {
+        select: {
+          id: true,
+        }
+      },
+      user: {
+        select: {
+          username: true,
+        },
+      },
+    },
   });
 
   return tweets;
@@ -38,6 +60,9 @@ export async function getUserResponses(userId: number) {
     where: {
       userId,
     },
+    orderBy: {
+      created_at: "desc",
+    },
   });
 
   return responses;
@@ -47,6 +72,9 @@ export async function getUserLikes(userId: number) {
   const likes = await db.like.findMany({
     where: {
       userId,
+    },
+    orderBy: {
+      created_at: "desc",
     },
     select: {
       userId: true,

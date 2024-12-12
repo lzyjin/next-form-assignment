@@ -1,11 +1,13 @@
 import {deleteTweet} from "@/services/tweet-service";
 import {Bounce, toast} from "react-toastify";
 import {useState} from "react";
-import {useRouter} from "next/navigation";
+import {useParams, usePathname, useRouter} from "next/navigation";
 
 export default function DeleteModal({tweetId}: {tweetId: number}) {
+  const pathname = usePathname();
   const [isClosed, setIsClosed] = useState(false);
   const router = useRouter();
+  const params = useParams();
 
   const onDeleteClick = async () => {
     const result = await deleteTweet(tweetId);
@@ -13,7 +15,7 @@ export default function DeleteModal({tweetId}: {tweetId: number}) {
     if (result) {
       toast.success('삭제되었습니다.', {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -23,7 +25,12 @@ export default function DeleteModal({tweetId}: {tweetId: number}) {
         transition: Bounce,
       });
 
-      router.refresh();
+      if (pathname === `/tweets/${params.id}`) {
+        router.push("/");
+      } else {
+        router.refresh();
+      }
+
     }
   };
 

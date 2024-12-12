@@ -1,5 +1,5 @@
 import TweetList from "@/components/tweet-list";
-import AddTweet from "@/components/add-tweet";
+import FormTweet from "@/components/form-tweet";
 import {getInitialTweets} from "@/services/tweet-service";
 import {getSession} from "@/lib/session";
 import {notFound} from "next/navigation";
@@ -15,8 +15,10 @@ export default async function Home() {
 
   return (
     <div>
-      <AddTweet />
-      <TweetList initialTweets={initialTweets} userId={userId} />
+      <div className="w-full bg-white px-5 py-3 border-b border-neutral-200">
+        <FormTweet currentTweet={null} />
+      </div>
+      <TweetList initialTweets={initialTweets} userId={userId}/>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import {TWEET_PAGE} from "@/lib/constants";
 import {Prisma} from "@prisma/client";
 import {getSession} from "@/lib/session";
 import {revalidateTag} from "next/cache";
-import {addTweetSchema, tweetResponseSchema} from "@/lib/schemas";
+import {addTweetSchema, editTweetSchema, tweetResponseSchema} from "@/lib/schemas";
 import {redirect} from "next/navigation";
 
 export async function getInitialTweets() {
@@ -94,11 +94,31 @@ export async function getTweet(id: number) {
     where: {
       id,
     },
-    include: {
-      user: true,
-      responses: true,
+    select: {
+      id: true,
+      tweet: true,
+      created_at: true,
+      updated_at: true,
+      userId: true,
+      likes: {
+        select: {
+          created_at: true,
+          userId: true,
+        }
+      },
+      responses: {
+        select: {
+          id: true,
+        }
+      },
+      user: {
+        select: {
+          username: true,
+        },
+      },
     },
   });
+  console.log(tweet)
 
   return tweet;
 }
@@ -216,8 +236,6 @@ export const addTweetResponse = async (formData: FormData) => {
 }
 
 export async function postTweet(prevState: unknown, formData: FormData) {
-  "use server";
-
   const data = {
     content: formData.get("content"),
   };
@@ -242,6 +260,39 @@ export async function postTweet(prevState: unknown, formData: FormData) {
     });
 
     // revalidatePath(`/`);
+    redirect(`/tweets/${newTweet.id}`);
+  }
+}
+
+export async function editTweet(prevState: unknown, formData: FormData) {
+  const data = {
+    content: formData.get("content"),
+    tweetId: Number(formData.get("tweetId")),
+  };
+
+  const result = editTweetSchema.safeParse(data);
+
+  if (!result.success) {
+    return result.error.flatten();
+
+  } else {
+    const session = await getSession();
+    const userId = session.id!;
+
+    const newTweet = await db.tweet.update({
+      where: {
+        id: result.data.tweetId,
+      },
+      data: {
+        tweet: result.data.content,
+        userId: userId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    revalidateTag(`tweet-detail-${result.data.tweetId}`);
     redirect(`/tweets/${newTweet.id}`);
   }
 }
