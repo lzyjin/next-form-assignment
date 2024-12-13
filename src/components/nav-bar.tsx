@@ -7,12 +7,44 @@ import {SunIcon} from "@heroicons/react/24/outline";
 import {HomeIcon as HomeIconOutline, MagnifyingGlassIcon, MoonIcon, HeartIcon, UserIcon as UserIconOutline} from "@heroicons/react/24/outline";
 import {usePathname} from "next/navigation";
 import {UserIcon} from "@heroicons/react/24/solid";
+import {useEffect, useState} from "react";
 
 export default function NavBar({loggedInUsername}: {loggedInUsername: string}) {
   const pathname = decodeURIComponent(usePathname());
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const handleSystemThemeChange = ({matches}: any) => {
+      if (matches) {
+        setIsDark(true);
+      } else {
+        setIsDark(false);
+      }
+    };
+
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener("change", handleSystemThemeChange);
+
+    return () => {
+      window.removeEventListener("change", handleSystemThemeChange);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDark]);
+
+  const toggleTheme = () => {
+    setIsDark(p => !p);
+  };
 
   return (
-    <div className="fixed shrink-0 border-l border-r border-neutral-200 w-20 h-screen bg-white
+    <div className="fixed shrink-0 border-l border-r border-neutral-200 dark:border-[#3c4043] w-20 h-screen
     flex flex-col justify-between items-center
     py-5
     ">
@@ -49,9 +81,12 @@ export default function NavBar({loggedInUsername}: {loggedInUsername: string}) {
             </Link>
           </li>
           <li>
-            <button>
-              <MoonIcon className="text-neutral-400 w-7"/>
-              {/*<SunIcon className="text-neutral-400 w-8" />*/}
+            <button onClick={toggleTheme}>
+              {
+                isDark ?
+                <SunIcon className="text-neutral-400 w-8" /> :
+                <MoonIcon className="text-neutral-400 w-7" />
+              }
             </button>
           </li>
         </ul>

@@ -6,6 +6,10 @@ import {useFormState} from "react-dom";
 import {tweetResponseSchema} from "@/lib/schemas";
 import {TweetResponseListProps} from "@/lib/types";
 import {addTweetResponse} from "@/services/tweet-service";
+import Link from "next/link";
+import {ChatBubbleBottomCenterTextIcon, HeartIcon as HeartIconOutline} from "@heroicons/react/24/outline";
+import {HeartIcon} from "@heroicons/react/24/solid";
+import TweetMenuSection from "@/components/tweet-menu-section";
 
 export default function TweetResponseList({tweetId, userId, username, responses}: TweetResponseListProps) {
   const formRef = useRef<HTMLFormElement>(null);
@@ -48,7 +52,7 @@ export default function TweetResponseList({tweetId, userId, username, responses}
 
   return (
     <>
-      <div className="w-full bg-white px-5 py-3">
+      <div className="w-full px-5 py-3">
         <form action={action} className="flex gap-2" ref={formRef}>
           <input name="tweetId" type="hidden" value={tweetId}/>
           <input name="userId" type="hidden" value={userId}/>
@@ -59,7 +63,7 @@ export default function TweetResponseList({tweetId, userId, username, responses}
               placeholder="답글 게시하기"
               required
               minLength={1}
-              className="w-full bg-white py-2.5 px-5 outline-0 rounded-full border border-neutral-200"/>
+              className="w-full bg-transparent py-2.5 px-5 outline-0 rounded-full border border-neutral-200"/>
             {
               state?.fieldErrors && <span>{state?.fieldErrors[0]}</span>
             }
@@ -75,10 +79,17 @@ export default function TweetResponseList({tweetId, userId, username, responses}
       <div>
         {
           optimisticState.map((response) => (
-            <div key={response.id} className="border-b border-neutral-200 py-3 px-5">
-              <p>{response.user.username}</p>
-              <p>{response.response}</p>
-              <p>{formatDate(response.created_at.toString())}</p>
+            <div className="relative">
+              <div className="block border-b border-neutral-200 px-5 py-3 dark:border-[#3c4043]">
+                <div className="flex items-center gap-2 mb-3">
+                  <p className="font-bold text-black dark:text-[#e7e9ea]">{response.user.username}</p>
+                  <p
+                    className="text-sm text-neutral-600 dark:text-[#71767b]">{formatDate(response.created_at.toString())}</p>
+                </div>
+                <p className="line-clamp-10 whitespace-pre-wrap dark:text-[#e7e9ea]">{ response.response }</p>
+              </div>
+
+              {/*<TweetMenuSection userId={userId} tweetUserId={tweet.userId} tweetId={tweet.id}/>*/}
             </div>
           ))
         }

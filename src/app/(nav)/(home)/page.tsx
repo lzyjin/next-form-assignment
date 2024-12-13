@@ -15,7 +15,7 @@ export default async function Home() {
 
   return (
     <div>
-      <div className="w-full bg-white px-5 py-3 border-b border-neutral-200">
+      <div className="w-full px-5 py-3 border-b border-neutral-200 dark:border-[#3c4043]">
         <FormTweet currentTweet={null} />
       </div>
       <TweetList initialTweets={initialTweets} userId={userId}/>

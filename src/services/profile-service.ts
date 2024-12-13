@@ -81,8 +81,11 @@ export async function getUserLikes(userId: number) {
       tweetId: true,
       tweet: {
         select: {
+          id: true,
           tweet: true,
           created_at: true,
+          likes: true,
+          responses: true,
           user: {
             select: {
               id: true,

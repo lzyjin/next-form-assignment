@@ -9,15 +9,16 @@ export default function TweetMenu(
     <div className="absolute right-2 top-2">
       <button
         onClick={toggleMenu}
-        className="text-neutral-700 size-8 rounded-full flex justify-center items-center hover:bg-amber-100">
-        <EllipsisHorizontalIcon className="size-5 stroke-2"/>
+        className="text-neutral-700 size-8 rounded-full flex justify-center items-center hover:bg-amber-100 dark:text-[#71767b] dark:hover:bg-neutral-800 dark:hover:text-amber-300">
+        <EllipsisHorizontalIcon className="size-5 stroke-2 "/>
       </button>
       {
         isMenuOpen &&
         <div className="absolute right-2 top-2 bg-white shadow-lg rounded-xl w-48 overflow-hidden z-20
           *:flex *:items-center *:gap-3 *:py-2 *:px-4 *:font-bold *:cursor-pointer
+          dark:text-black
         ">
-          <div className="hover:bg-neutral-50 text-[#f4212e]" onClick={openDeleteModal}>
+          <div onClick={openDeleteModal} className="hover:bg-neutral-50 text-[#f4212e]">
             <TrashIcon className="size-4" />
             <span>삭제하기</span>
           </div>

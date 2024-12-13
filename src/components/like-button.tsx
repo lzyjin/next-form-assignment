@@ -27,7 +27,7 @@ export default function LikeButton({isLiked, likeCount, tweetId}: LikeButtonProp
   };
 
   return (
-    <div className="flex items-center gap-1 cursor-pointer" onClick={onClick}>
+    <div className="flex items-center gap-1 cursor-pointer dark:text-[#71767b]" onClick={onClick}>
       {
         state.isLiked ?
           <>

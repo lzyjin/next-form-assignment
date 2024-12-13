@@ -37,7 +37,7 @@ export default function FormTweet({currentTweet}: {currentTweet: Tweet | null}) 
           minLength={1}
           maxLength={200}
           required
-          className="w-full outline-0 border-0 text-black font-medium text-lg overflow-y-hidden resize-none"
+          className="w-full outline-0 border-0 bg-transparent text-black font-medium text-lg overflow-y-hidden resize-none dark:text-[#e7e9ea]"
           onKeyUp={onkeyup}
           ref={textareaRef}
           defaultValue={currentTweet?.tweet}
@@ -50,7 +50,7 @@ export default function FormTweet({currentTweet}: {currentTweet: Tweet | null}) 
       }
 
       <div className="flex justify-between items-center">
-        <p className="text-sm text-neutral-400">{tweetLength}/200</p>
+        <p className="text-sm text-neutral-400 dark:text-[#71767b]">{tweetLength}/200</p>
         <button
           className="w-24 text-center h-9 bg-amber-300 text-white rounded-full font-bold
             disabled:bg-neutral-300 disabled:text-neutral-500"

@@ -20,8 +20,8 @@ const config: Config = {
       }
     },
   },
-  plugins: [
-    // require('@tailwindcss/line-clamp'),
-  ],
+  // darkMode: ['selector', '[data-mode="dark"]'],
+  darkMode: ["selector"],
+  plugins: [],
 };
 export default config;

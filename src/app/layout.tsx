@@ -16,7 +16,7 @@ export default function RootLayout({
 
   return (
     <html lang="ko">
-      <body className={`antialiased w-screen min-h-screen`}>
+      <body className={`antialiased w-screen min-h-screen bg-white text-[#171717] dark:bg-black dark:text-[#71767b]`}>
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -30,7 +30,7 @@ export default function RootLayout({
           theme="light"
           transition={Bounce}
         />
-        <div className="min-h-screen h-full max-w-xl mx-auto overflow-hidden border-r border-neutral-200">
+        <div className="min-h-screen h-full max-w-xl mx-auto overflow-hidden border-r border-neutral-200 dark:border-[#3c4043]">
           <div className="w-full h-ful">
             {children}
           </div>

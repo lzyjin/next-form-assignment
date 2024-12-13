@@ -13,7 +13,7 @@ import TweetMenuSection from "@/components/tweet-menu-section";
 function getCachedTweet(id: number) {
   const cachedTweet = nextCache(getTweet, ["tweet-detail"], {
     tags: ["tweet-detail", `tweet-detail-${id}`],
-    // revalidate: 60,
+    revalidate: 60,
   });
 
   return cachedTweet(id);
@@ -63,22 +63,22 @@ export default async function TweetDetail({params}: { params: {id: string}}) {
 
   return (
     <div>
-      <div className="p-5 border-b border-neutral-200">
+      <div className="p-5 border-b border-neutral-200 dark:border-[#3c4043]">
         <GoBackButton />
       </div>
 
       <div className="relative p-5">
         <div className="flex items-center gap-2 mb-3">
-          <p className="font-bold text-black">{tweet.user.username}</p>
-          <p className="text-sm text-neutral-600">{formatDate(tweet.created_at.toString())}</p>
+          <p className="font-bold text-black dark:text-[#e7e9ea]">{tweet.user.username}</p>
+          <p className="text-sm text-neutral-600 dark:text-[#71767b]">{formatDate(tweet.created_at.toString())}</p>
         </div>
-        <p className="whitespace-pre-wrap">{tweet.tweet}</p>
+        <p className="whitespace-pre-wrap dark:text-[#e7e9ea]">{tweet.tweet}</p>
 
         <TweetMenuSection userId={userId} tweetUserId={tweet.userId} tweetId={tweet.id}/>
       </div>
 
-      <div className="flex items-center gap-5 py-3 px-5 border-t border-b border-neutral-200">
-        <div className="flex items-center gap-1">
+      <div className="flex items-center gap-5 py-3 px-5 border-t border-b border-neutral-200 dark:border-[#3c4043]">
+        <div className="flex items-center gap-1 dark:text-[#71767b]">
           <ChatBubbleBottomCenterTextIcon className="w-5" />
           <span>{tweet?.responses.length}</span>
         </div>

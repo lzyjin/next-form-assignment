@@ -2,7 +2,7 @@ export function formatDate(date: string) {
   const dayInMs = Date.parse(date);
 
   const formatter = new Intl.DateTimeFormat("ko-KR", {
-    dateStyle: 'full',
+    dateStyle: 'long',
     // timeStyle: 'short',
   });
 

@@ -41,21 +41,22 @@ export default function TweetItem({tweet, userId, searchKeyword}: {tweet: Tweet,
   return (
     <div className="relative">
 
-      <Link href={`/tweets/${tweet.id}`} className="block border-b border-neutral-200 px-5 py-3 hover:bg-neutral-50">
+      <Link href={`/tweets/${tweet.id}`} className="block border-b border-neutral-200 px-5 py-3
+      hover:bg-neutral-50 dark:border-[#3c4043] dark:hover:bg-neutral-800">
         <div className="flex items-center gap-2 mb-3">
-          <p className="font-bold text-black">{tweet.user.username}</p>
-          <p className="text-sm text-neutral-600">{formatDate(tweet.created_at.toString())}</p>
+          <p className="font-bold text-black dark:text-[#e7e9ea]">{tweet.user.username}</p>
+          <p className="text-sm text-neutral-600 dark:text-[#71767b]">{formatDate(tweet.created_at.toString())}</p>
         </div>
-        <p className="line-clamp-10 whitespace-pre-wrap mb-3">
+        <p className="line-clamp-10 whitespace-pre-wrap mb-3 dark:text-[#e7e9ea]">
           {
             searchResultContent.length ?
             searchResultContent.map((t, i) => (
-              <span key={i} className={`${i === 1 ? "font-bold bg-amber-200" : ""}`}>{t}</span>
+              <span key={i} className={`${i === 1 ? "font-bold bg-amber-200 dark:bg-transparent dark:text-amber-200" : ""}`}>{t}</span>
             )) :
             tweet.tweet
           }
         </p>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 dark:text-[#71767b]">
           <div className="flex items-center gap-1">
             <ChatBubbleBottomCenterTextIcon className="w-5"/>
             <span>{tweet?.responses.length}</span>

@@ -11,8 +11,6 @@ export default function SearchBar() {
   const { replace } = useRouter();
 
   const formAction = (formData: FormData) => {
-    console.log("액션!")
-
     const keywordData = formData.get("searchKeyword");
     const filterData = formData.get("filter") ?? "popular";
 
@@ -45,17 +43,18 @@ export default function SearchBar() {
   };
 
   return (
-    <div className={`w-full bg-white px-5 border-b border-neutral-200 ${currentKeyword ? "pt-3" : "py-3"}`}>
+    <div className={`w-full px-5 border-b border-neutral-200 dark:border-[#3c4043] ${currentKeyword ? "pt-3" : "py-3"}`}>
       <form action={formAction} className="">
         <div className="border border-neutral-200 rounded-full relative w-full overflow-hidden
           flex items-center gap-5 px-5
-          transition-shadow ring-offset-2 has-[:focus]:ring-2 has-[:focus]:ring-neutral-300"
+          transition-shadow ring-offset-2 has-[:focus]:ring-2 has-[:focus]:ring-amber-300
+          dark:ring-offset-[#1f1f1f] dark:border-0 dark:bg-[#202327] dark:has-[:focus]:ring-1 dark:has-[:focus]:text-amber-300"
         >
           <MagnifyingGlassIcon className="w-6"/>
           <input
             id="searchKeyword"
             name="searchKeyword"
-            className="w-full bg-white py-2.5 outline-0 disabled:bg-neutral-100"
+            className="w-full bg-transparent py-2.5 outline-0 disabled:bg-neutral-100 dark:text-[#e7e9ea]"
             defaultValue={searchParams.get("query")?.toString()}
             placeholder="검색"
           />
@@ -65,7 +64,9 @@ export default function SearchBar() {
             <div className="flex gap-5 text-center *:relative">
 
               <div>
-                <label className={`cursor-pointer block w-20 py-3 ${currentFilter === "popular" ? "text-black font-bold" : "text-neutral-400"}`}>
+                <label className={`cursor-pointer block w-20 py-3 font-semibold 
+                  ${currentFilter === "popular" ? "font-bold text-black dark:text-[#e7e9ea]" : "text-neutral-400 dark:text-[#71767b]"}`}
+                >
                   <input type="radio" name="filter" value="popular" className="hidden" defaultChecked={true} onChange={onChange}/>
                   인기
                 </label>
@@ -74,7 +75,9 @@ export default function SearchBar() {
               </div>
 
               <div>
-                <label className={`cursor-pointer block w-20 py-3 ${currentFilter === "latest" ? "text-black font-bold" : "text-neutral-400"}`}>
+                <label className={`cursor-pointer block w-20 py-3 font-semibold 
+                  ${currentFilter === "latest" ? "font-bold text-black dark:text-[#e7e9ea]" : "text-neutral-400 dark:text-[#71767b]"}`}
+                >
                   <input type="radio" name="filter" value="latest" className="hidden" onChange={onChange}/>
                   최신
                 </label>
@@ -83,7 +86,9 @@ export default function SearchBar() {
               </div>
 
               <div>
-                <label className={`cursor-pointer block w-20 py-3 ${currentFilter === "user" ? "text-black font-bold" : "text-neutral-400"}`}>
+                <label className={`cursor-pointer block w-20 py-3 font-semibold 
+                  ${currentFilter === "user" ? "font-bold text-black dark:text-[#e7e9ea]" : "text-neutral-400 dark:text-[#71767b]"}`}
+                >
                   <input type="radio" name="filter" value="user" className="hidden" onChange={onChange}/>
                   사용자
                 </label>
