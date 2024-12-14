@@ -185,9 +185,6 @@ export async function editUserPassword(_: unknown, formData: FormData) {
 
     const hashedPassword = await bcrypt.hash(result.data.password, 12);
 
-    console.log(result.data);
-    console.log(hashedPassword);
-
     await db.user.update({
       where: {
         id: userId,

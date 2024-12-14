@@ -23,7 +23,7 @@ export default function TweetItem({tweet, userId, searchKeyword}: {tweet: Tweet,
         setIsLiked(true);
       }
     });
-  }, []);
+  }, [tweet.likes, userId]);
 
   useEffect(() => {
     setSearchResultContent([]);
@@ -34,9 +34,9 @@ export default function TweetItem({tweet, userId, searchKeyword}: {tweet: Tweet,
       const frontArr = tweetContentArr.slice(0, keywordIndex);
       const backArr = tweetContentArr.slice(keywordIndex + searchKeyword.length);
 
-      setSearchResultContent(p => [frontArr.join(""), searchKeyword, backArr.join("")])
+      setSearchResultContent([frontArr.join(""), searchKeyword, backArr.join("")])
     }
-  }, [searchKeyword]);
+  }, [searchKeyword, tweet.tweet]);
 
   return (
     <div className="relative">

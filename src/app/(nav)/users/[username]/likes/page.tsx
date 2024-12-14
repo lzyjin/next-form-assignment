@@ -44,7 +44,6 @@ export default async function UserLikes({params}: {params: {username: string}}) 
         <div>
           {
             likes.map((like) => (
-              // <TweetItem key={like.userId + like.tweetId} tweet={like.tweet} userId={userId} />
               <div className="relative" key={like.userId + like.tweetId}>
 
                 <Link href={`/tweets/${like.tweet.id}`} className="block border-b border-neutral-200 px-5 py-3

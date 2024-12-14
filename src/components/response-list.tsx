@@ -6,12 +6,9 @@ import {useFormState} from "react-dom";
 import {tweetResponseSchema} from "@/lib/schemas";
 import {TweetResponseListProps} from "@/lib/types";
 import {addTweetResponse} from "@/services/tweet-service";
-import Link from "next/link";
-import {ChatBubbleBottomCenterTextIcon, HeartIcon as HeartIconOutline} from "@heroicons/react/24/outline";
-import {HeartIcon} from "@heroicons/react/24/solid";
-import TweetMenuSection from "@/components/tweet-menu-section";
+import ResponseMenuSection from "@/components/response-menu-section";
 
-export default function TweetResponseList({tweetId, userId, username, responses}: TweetResponseListProps) {
+export default function ResponseList({tweetId, userId, username, responses}: TweetResponseListProps) {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [optimisticState, addOptimistic] = useOptimistic(
@@ -79,7 +76,7 @@ export default function TweetResponseList({tweetId, userId, username, responses}
       <div>
         {
           optimisticState.map((response) => (
-            <div className="relative">
+            <div key={response.id} className="relative">
               <div className="block border-b border-neutral-200 px-5 py-3 dark:border-[#3c4043]">
                 <div className="flex items-center gap-2 mb-3">
                   <p className="font-bold text-black dark:text-[#e7e9ea]">{response.user.username}</p>
@@ -89,7 +86,7 @@ export default function TweetResponseList({tweetId, userId, username, responses}
                 <p className="line-clamp-10 whitespace-pre-wrap dark:text-[#e7e9ea]">{ response.response }</p>
               </div>
 
-              {/*<TweetMenuSection userId={userId} tweetUserId={tweet.userId} tweetId={tweet.id}/>*/}
+              <ResponseMenuSection userId={userId} responseUserId={response.userId} responseId={response.id} />
             </div>
           ))
         }

@@ -1,12 +1,12 @@
 "use client";
 
-import TweetMenu from "@/components/tweet-menu";
 import DeleteModal from "@/components/delete-modal";
 import {useState} from "react";
+import ResponseMenu from "@/components/response-menu";
 
-export default function TweetMenuSection(
-  {userId, tweetUserId, tweetId}:
-  {userId: number, tweetUserId: number, tweetId: number}
+export default function ResponseMenuSection(
+  {userId, responseUserId, responseId}:
+  {userId: number, responseUserId: number, responseId: number}
 ) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -28,9 +28,9 @@ export default function TweetMenuSection(
     <>
       { isMenuOpen && <div onClick={closeMenu} className="fixed left-0 top-0 w-screen h-screen z-10" /> }
 
-      { tweetUserId === userId && <TweetMenu toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} openDeleteModal={openDeleteModal} tweetId={tweetId} /> }
+      { responseUserId === userId && <ResponseMenu toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} openDeleteModal={openDeleteModal} responseId={responseId} /> }
 
-      { isDeleteModalOpen && <DeleteModal targetId={tweetId} targetType="tweet" /> }
+      { isDeleteModalOpen && <DeleteModal targetId={responseId} targetType="response" /> }
     </>
   )
 }

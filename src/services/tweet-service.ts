@@ -118,7 +118,6 @@ export async function getTweet(id: number) {
       },
     },
   });
-  console.log(tweet)
 
   return tweet;
 }
@@ -308,4 +307,17 @@ export async function deleteTweet(tweetId: number) {
   });
 
   return tweet;
+}
+
+export async function deleteResponse(responseId: number) {
+  const response = await db.response.delete({
+    where: {
+      id: responseId,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  return response;
 }

@@ -6,6 +6,7 @@ import ProfileTabs from "@/components/profile-tabs";
 import Link from "next/link";
 import {getUserProfile, getUserResponses} from "@/services/profile-service";
 import {getLoggedInUsername} from "@/services/user-service";
+import ResponseMenuSection from "@/components/response-menu-section";
 
 export default async function UserResponses({params}: {params: {username: string}}) {
   const session = await getSession();
@@ -40,17 +41,19 @@ export default async function UserResponses({params}: {params: {username: string
         <div>
           {
             responses.map((response) => (
-            <Link href={`/tweets/${response.tweetId}`} key={response.id} className="relative">
-              <div className="block border-b border-neutral-200 px-5 py-3 dark:border-[#3c4043]">
-                <div className="flex items-center gap-2 mb-3">
-                  <p className="font-bold text-black dark:text-[#e7e9ea]">{username}</p>
-                  <p className="text-sm text-neutral-600 dark:text-[#71767b]">{formatDate(response.created_at.toString())}</p>
-                </div>
-                <p className="line-clamp-10 whitespace-pre-wrap dark:text-[#e7e9ea]">{ response.response }</p>
-              </div>
+              <div key={response.id} className="relative">
+                <Link href={`/tweets/${response.tweetId}`}>
+                  <div className="block border-b border-neutral-200 px-5 py-3 dark:border-[#3c4043]">
+                    <div className="flex items-center gap-2 mb-3">
+                      <p className="font-bold text-black dark:text-[#e7e9ea]">{username}</p>
+                      <p className="text-sm text-neutral-600 dark:text-[#71767b]">{formatDate(response.created_at.toString())}</p>
+                    </div>
+                    <p className="line-clamp-10 whitespace-pre-wrap dark:text-[#e7e9ea]">{ response.response }</p>
+                  </div>
+                </Link>
 
-              {/*<TweetMenuSection userId={userId} tweetUserId={tweet.userId} tweetId={tweet.id}/>*/}
-            </Link>
+                <ResponseMenuSection userId={userId} responseUserId={response.userId} responseId={response.id} />
+              </div>
             ))
           }
         </div>

@@ -1,37 +1,62 @@
-import {deleteTweet} from "@/services/tweet-service";
+import {deleteResponse, deleteTweet} from "@/services/tweet-service";
 import {Bounce, toast} from "react-toastify";
 import {useState} from "react";
 import {useParams, usePathname, useRouter} from "next/navigation";
+import {revalidatePath} from "next/cache";
 
-export default function DeleteModal({tweetId}: {tweetId: number}) {
+export default function DeleteModal({targetId, targetType}: {targetId: number, targetType: "tweet" | "response"}) {
   const pathname = usePathname();
   const [isClosed, setIsClosed] = useState(false);
   const router = useRouter();
   const params = useParams();
 
   const onDeleteClick = async () => {
-    const result = await deleteTweet(tweetId);
+    if (targetType === "tweet") {
+      const result = await deleteTweet(targetId);
 
-    if (result) {
-      toast.success('삭제되었습니다.', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
+      if (result) {
+        toast.success('삭제되었습니다.', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
 
-      if (pathname === `/tweets/${params.id}`) {
-        router.push("/");
-      } else {
-        router.refresh();
+        if (pathname === `/tweets/${params.id}`) {
+          router.push("/");
+        } else {
+          revalidatePath(pathname);
+          router.refresh();
+        }
+
       }
 
+    } else if (targetType === "response") {
+      const result = await deleteResponse(targetId);
+
+      if (result) {
+        toast.success('삭제되었습니다.', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
+
+        router.refresh();
+
+      }
     }
+
   };
 
   const onCancelClick = () => {

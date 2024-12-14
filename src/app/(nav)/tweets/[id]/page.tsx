@@ -1,6 +1,6 @@
 import {notFound} from "next/navigation";
 import {formatDate} from "@/lib/utils";
-import TweetResponseList from "@/components/tweet-response-list";
+import ResponseList from "@/components/response-list";
 import {ChatBubbleBottomCenterTextIcon} from "@heroicons/react/24/outline";
 import LikeButton from "@/components/like-button";
 import {unstable_cache as nextCache} from "next/cache";
@@ -86,7 +86,7 @@ export default async function TweetDetail({params}: { params: {id: string}}) {
       </div>
 
       <div className="">
-        <TweetResponseList tweetId={id} userId={userId} username={username ?? ""} responses={responses} />
+        <ResponseList tweetId={id} userId={userId} username={username ?? ""} responses={responses} />
       </div>
     </div>
   );
