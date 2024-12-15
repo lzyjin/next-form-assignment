@@ -11,26 +11,24 @@ export default function EditUserPassword() {
   return (
     <form action={action}>
       <div className="w-full flex flex-col gap-3 mb-5">
-        <div className="flex items-center gap-3">
-          <label htmlFor="password" className="w-28 shrink-0">새 비밀번호</label>
+        <div className="flex flex-col items-center gap-3 sm:flex-row has-[input]:placeholder:text-sm">
+          <label htmlFor="password" className="block w-full shrink-0 sm:w-28">새 비밀번호</label>
           <Input
             name="password"
             type="password"
             required={true}
-            placeholder="영문소문자+영문대문자+숫자+특수문자 조합 10~16자리"
+            placeholder="소문자+대문자+숫자+특수문자 조합 10~16자리"
             errors={state?.fieldErrors.password}
-            className="flex-1"
           />
         </div>
-        <div className="flex items-center gap-3">
-          <label htmlFor="confirmPassword" className="w-28 shrink-0">새 비밀번호 확인</label>
+        <div className="flex flex-col items-center gap-3 sm:flex-row">
+          <label htmlFor="confirmPassword" className="block w-full shrink-0 sm:w-28">새 비밀번호 확인</label>
           <Input
             name="confirmPassword"
             type="password"
             required={true}
-            placeholder="영문소문자+영문대문자+숫자+특수문자 조합 10~16자리"
+            placeholder="소문자+대문자+숫자+특수문자 조합 10~16자리"
             errors={state?.fieldErrors.confirmPassword}
-            className="flex-1"
           />
         </div>
       </div>

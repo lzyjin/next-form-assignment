@@ -15,6 +15,14 @@ export default function NavBar({loggedInUsername}: {loggedInUsername: string}) {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
+    const isSystemThemeDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark" || isSystemThemeDark) {
+      setIsDark(true);
+    } else {
+      setIsDark(false);
+    }
+
     const handleSystemThemeChange = (result: MediaQueryList) => {
       const matches = result.matches;
 
@@ -37,8 +45,10 @@ export default function NavBar({loggedInUsername}: {loggedInUsername: string}) {
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add("dark");
+      localStorage.setItem('theme', "dark");
     } else {
       document.documentElement.classList.remove("dark");
+      localStorage.setItem('theme', "light");
     }
   }, [isDark]);
 
@@ -57,8 +67,8 @@ export default function NavBar({loggedInUsername}: {loggedInUsername: string}) {
   };
 
   return (
-    <div className="fixed shrink-0 border-l border-r border-neutral-200 dark:border-[#3c4043] w-20 h-screen
-    flex flex-col justify-between items-center z-20 py-2
+    <div className="fixed shrink-0 border-r border-neutral-200 dark:border-[#3c4043] w-[70px] h-screen
+    flex flex-col justify-between items-center z-20 py-2 sm:w-20
     ">
       <div>
         <ul className="flex flex-col justify-center items-center gap-2 text-black dark:text-white">

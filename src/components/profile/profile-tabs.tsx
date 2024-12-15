@@ -8,7 +8,9 @@ export default function ProfileTabs({username, isLoggedInUsersProfile}: ProfileT
   const pathname = decodeURIComponent(usePathname());
 
   return (
-    <div className="flex items-center border-b border-neutral-200 text-center *:flex-1 *:block *:px-5 *:pt-3 text-neutral-400 dark:text-[#71767b]">
+    <div className="flex items-center border-b border-neutral-200 text-center
+      *:flex-auto *:block *:px-5 *:pt-3 text-neutral-400 dark:text-[#71767b]
+    ">
       <Link href={`/users/${username}`} className="hover:bg-neutral-100 dark:hover:bg-neutral-800">
         <div className="relative pb-3">
           <p className={`${pathname === `/users/${username}` && "font-bold text-black dark:text-[#e7e9ea]"}`}>게시물</p>

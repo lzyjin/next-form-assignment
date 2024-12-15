@@ -61,7 +61,7 @@ export default function SearchBar() {
         </div>
         {
           currentKeyword && (
-            <div className="flex gap-5 text-center text-neutral-400 dark:text-[#71767b] *:flex-1 *:cursor-pointer *:pt-3">
+            <div className="flex gap-5 text-center text-neutral-400 dark:text-[#71767b] *:flex-auto *:cursor-pointer *:pt-3">
 
               <div className="hover:bg-neutral-100 dark:hover:bg-neutral-800">
                 <div className="relative pb-3">

@@ -162,9 +162,9 @@ export async function editUserInfo(_: unknown, formData: FormData) {
         username: true,
       }
     });
+    console.log(updatedUser)
 
-    redirect(`/users/${updatedUser.username}`);
-
+    redirect(`/users/${encodeURIComponent(updatedUser.username)}`);
   }
 }
 

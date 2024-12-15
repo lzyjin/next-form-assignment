@@ -13,7 +13,7 @@ export default async function NavLayout(
   return (
       <div>
         <NavBar loggedInUsername={username} />
-        <div className="h-full pl-20">
+        <div className="h-full pl-[70px] sm:pl-20">
           {children}
         </div>
       </div>

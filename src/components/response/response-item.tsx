@@ -24,9 +24,9 @@ export default function ResponseItem({response, userId}: {response: TweetRespons
             className="text-sm text-neutral-600 dark:text-[#71767b]">{formatDate(response.created_at.toString())}</p>
         </div>
         <p className="line-clamp-10 whitespace-pre-wrap dark:text-[#e7e9ea]">{response.response}</p>
-
-        <ResponseMenuSection userId={userId} responseUserId={response.userId} responseId={response.id}/>
       </Link>
+
+      <ResponseMenuSection userId={userId} responseUserId={response.userId} responseId={response.id}/>
     </div>
   );
 }

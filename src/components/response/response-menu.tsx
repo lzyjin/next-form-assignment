@@ -27,10 +27,10 @@ export default function ResponseMenu(
             <TrashIcon className="size-4" />
             <span>삭제하기</span>
           </div>
-          <Link href={``} className="block hover:bg-neutral-50">
+          <button className="block hover:bg-neutral-50">
             <PencilIcon className="size-4" />
             <span>수정</span>
-          </Link>
+          </button>
         </div>
       }
     </div>

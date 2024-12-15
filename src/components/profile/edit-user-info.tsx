@@ -17,8 +17,8 @@ export default function EditUserInfo({username, email, bio}: EditUserInfoProps) 
   return (
     <form action={action}>
       <div className="w-full flex flex-col gap-3 mb-5">
-        <div className="w-full flex items-center gap-3">
-          <label htmlFor="username" className="w-28 shrink-0">사용자이름</label>
+        <div className="flex flex-col items-center gap-3 sm:flex-row">
+          <label htmlFor="username" className="block w-full shrink-0 sm:w-28">사용자이름</label>
           <Input
             name="username"
             type="text"
@@ -26,11 +26,12 @@ export default function EditUserInfo({username, email, bio}: EditUserInfoProps) 
             placeholder=""
             errors={state?.fieldErrors.username}
             value={usernameState}
-            onChange={(e) => setUsernameState(e.currentTarget.value)} />
+            onChange={(e) => setUsernameState(e.currentTarget.value)}
+          />
         </div>
 
-        <div className="flex items-center gap-3">
-          <label htmlFor="email" className="w-28 shrink-0">이메일</label>
+        <div className="flex flex-col items-center gap-3 sm:flex-row">
+          <label htmlFor="email" className="block w-full shrink-0 sm:w-28">이메일</label>
           <Input
             name="email"
             type="email"
@@ -38,12 +39,13 @@ export default function EditUserInfo({username, email, bio}: EditUserInfoProps) 
             placeholder=""
             errors={state?.fieldErrors.email}
             value={emailState}
-            disabled={true}
-            onChange={(e) => setEmailState(e.currentTarget.value)} />
+            readOnly={true}
+            onChange={(e) => setEmailState(e.currentTarget.value)}
+          />
         </div>
 
-        <div className="flex items-center gap-3">
-          <label htmlFor="bio" className="w-28 shrink-0">자기소개</label>
+        <div className="flex flex-col items-center gap-3 sm:flex-row">
+          <label htmlFor="bio" className="block w-full shrink-0 sm:w-28">자기소개</label>
           <Input
             name="bio"
             type="text"
@@ -51,7 +53,8 @@ export default function EditUserInfo({username, email, bio}: EditUserInfoProps) 
             placeholder=""
             errors={state?.fieldErrors.bio}
             value={bioState ?? ""}
-            onChange={(e) => setBioState(e.currentTarget.value)} />
+            onChange={(e) => setBioState(e.currentTarget.value)}
+          />
         </div>
 
       </div>

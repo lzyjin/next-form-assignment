@@ -22,18 +22,18 @@ export default async function ProfileEdit({params}: {params: {username: string}}
 
   return (
     <div>
-      <div className="p-5 border-b border-neutral-200">
+      <div className="p-5 border-b border-neutral-200 dark:border-neutral-700">
         <GoBackButton/>
       </div>
       <div className="px-5">
-        <h1 className="text-center font-bold text-xl my-5">회원 정보 수정</h1>
+        <h1 className="text-center font-bold text-xl my-5 dark:text-white">회원 정보 수정</h1>
         <div className="flex flex-col gap-10">
           <div>
-            <p className="font-bold mb-5">기본정보 수정</p>
+            <p className="font-bold mb-5 dark:text-white">기본정보 수정</p>
             <EditUserInfo username={username} email={user.email} bio={user.bio} />
           </div>
           <div>
-            <p className="font-bold mb-5">비밀번호 변경</p>
+            <p className="font-bold mb-5 dark:text-white">비밀번호 변경</p>
             <EditUserPassword />
           </div>
         </div>

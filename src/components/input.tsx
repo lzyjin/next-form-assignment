@@ -9,7 +9,7 @@ export default function Input({name, errors = [], ...rest}: InputProps & InputHT
   const pathname = usePathname();
 
   return (
-    <div className="flex-grow">
+    <div className="w-full flex-grow">
       <div
         className={`border border-neutral-200 rounded-full relative w-full overflow-hidden
           transition-shadow ring-offset-2 has-[:focus]:ring-2 has-[:focus]:ring-neutral-300
@@ -35,7 +35,8 @@ export default function Input({name, errors = [], ...rest}: InputProps & InputHT
           name={name}
           {...rest}
           className={`
-            w-full bg-white py-2.5 px-5 pr-5 outline-0 disabled:bg-neutral-100
+            w-full bg-transparent py-2.5 px-5 pr-5 outline-0 read-only:bg-neutral-100 text-black
+            dark:read-only:bg-neutral-700 dark:text-white
             ${(pathname === "/log-in" || pathname === "/create-account") && "pl-12" }
           `} />
       </div>

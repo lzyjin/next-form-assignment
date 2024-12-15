@@ -66,7 +66,7 @@ export default function DeleteModal({targetId, targetType}: {targetId: number, t
   return (
     isClosed ?
       null :
-      <div className="fixed left-0 top-0 w-screen h-screen z-10 flex justify-center items-center">
+      <div className="fixed left-0 top-0 w-screen h-screen z-20 flex justify-center items-center">
         <div className="absolute left-0 top-0 w-full h-full bg-black opacity-40"/>
         <div className="bg-white shadow-lg rounded-xl w-[320px] overflow-hidden z-20 p-8">
           <h1 className="font-bold text-xl mb-2 dark:text-black">게시물을 삭제할까요?</h1>
