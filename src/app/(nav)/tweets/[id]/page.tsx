@@ -1,6 +1,6 @@
 import {notFound} from "next/navigation";
 import {formatDate} from "@/lib/utils";
-import ResponseList from "@/components/response-list";
+import ResponseList from "@/components/response/response-list";
 import {ChatBubbleBottomCenterTextIcon} from "@heroicons/react/24/outline";
 import LikeButton from "@/components/like-button";
 import {unstable_cache as nextCache} from "next/cache";
@@ -8,7 +8,7 @@ import {getSession} from "@/lib/session";
 import {getLikeStatus, getResponses, getTweet} from "@/services/tweet-service";
 import {getLoggedInUsername} from "@/services/user-service";
 import GoBackButton from "@/components/go-back-button";
-import TweetMenuSection from "@/components/tweet-menu-section";
+import TweetMenuSection from "@/components/tweet/tweet-menu-section";
 
 function getCachedTweet(id: number) {
   const cachedTweet = nextCache(getTweet, ["tweet-detail"], {

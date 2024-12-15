@@ -2,7 +2,7 @@
 
 import DeleteModal from "@/components/delete-modal";
 import {useState} from "react";
-import ResponseMenu from "@/components/response-menu";
+import ResponseMenu from "@/components/response/response-menu";
 
 export default function ResponseMenuSection(
   {userId, responseUserId, responseId}:

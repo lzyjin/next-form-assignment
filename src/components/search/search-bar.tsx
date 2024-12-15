@@ -43,9 +43,9 @@ export default function SearchBar() {
   };
 
   return (
-    <div className={`w-full px-5 border-b border-neutral-200 dark:border-[#3c4043] ${currentKeyword ? "pt-3" : "py-3"}`}>
+    <div className={`w-full px-5 border-b border-neutral-200 dark:border-[#3c4043] pt-3`}>
       <form action={formAction} className="">
-        <div className="border border-neutral-200 rounded-full relative w-full overflow-hidden
+        <div className="border border-neutral-200 rounded-full relative w-full overflow-hidden mb-3
           flex items-center gap-5 px-5
           transition-shadow ring-offset-2 has-[:focus]:ring-2 has-[:focus]:ring-amber-300
           dark:ring-offset-[#1f1f1f] dark:border-0 dark:bg-[#202327] dark:has-[:focus]:ring-1 dark:has-[:focus]:text-amber-300"
@@ -61,39 +61,36 @@ export default function SearchBar() {
         </div>
         {
           currentKeyword && (
-            <div className="flex gap-5 text-center *:relative">
+            <div className="flex gap-5 text-center text-neutral-400 dark:text-[#71767b] *:flex-1 *:cursor-pointer *:pt-3">
 
-              <div>
-                <label className={`cursor-pointer block w-20 py-3 font-semibold 
-                  ${currentFilter === "popular" ? "font-bold text-black dark:text-[#e7e9ea]" : "text-neutral-400 dark:text-[#71767b]"}`}
-                >
-                  <input type="radio" name="filter" value="popular" className="hidden" defaultChecked={true} onChange={onChange}/>
-                  인기
-                </label>
-                {currentFilter === "popular" &&
-                  <span className="absolute left-0 bottom-0 w-full h-1 rounded-sm bg-amber-300"/>}
+              <div className="hover:bg-neutral-100 dark:hover:bg-neutral-800">
+                <div className="relative pb-3">
+                  <label className={`${currentFilter === "popular" && "font-bold text-black dark:text-[#e7e9ea]"}`}>
+                    <input type="radio" name="filter" value="popular" className="hidden" defaultChecked={true} onChange={onChange}/>
+                    인기
+                  </label>
+                  {currentFilter === "popular" && <span className="absolute left-0 bottom-0 w-full h-1 rounded-sm bg-amber-300"/>}
+                </div>
               </div>
 
-              <div>
-                <label className={`cursor-pointer block w-20 py-3 font-semibold 
-                  ${currentFilter === "latest" ? "font-bold text-black dark:text-[#e7e9ea]" : "text-neutral-400 dark:text-[#71767b]"}`}
-                >
-                  <input type="radio" name="filter" value="latest" className="hidden" onChange={onChange}/>
-                  최신
-                </label>
-                {currentFilter === "latest" &&
-                  <span className="absolute left-0 bottom-0 w-full h-1 rounded-sm bg-amber-300"/>}
+              <div className="hover:bg-neutral-100 dark:hover:bg-neutral-800">
+                <div className="relative pb-3">
+                  <label className={`${currentFilter === "latest" && "font-bold text-black dark:text-[#e7e9ea]"}`}>
+                    <input type="radio" name="filter" value="latest" className="hidden" onChange={onChange}/>
+                    최신
+                  </label>
+                  {currentFilter === "latest" && <span className="absolute left-0 bottom-0 w-full h-1 rounded-sm bg-amber-300"/>}
+                </div>
               </div>
 
-              <div>
-                <label className={`cursor-pointer block w-20 py-3 font-semibold 
-                  ${currentFilter === "user" ? "font-bold text-black dark:text-[#e7e9ea]" : "text-neutral-400 dark:text-[#71767b]"}`}
-                >
-                  <input type="radio" name="filter" value="user" className="hidden" onChange={onChange}/>
-                  사용자
-                </label>
-                {currentFilter === "user" &&
-                  <span className="absolute left-0 bottom-0 w-full h-1 rounded-sm bg-amber-300"/>}
+              <div className="hover:bg-neutral-100 dark:hover:bg-neutral-800">
+                <div className="relative pb-3">
+                  <label className={`${currentFilter === "user" && "font-bold text-black dark:text-[#e7e9ea]"}`}>
+                    <input type="radio" name="filter" value="user" className="hidden" onChange={onChange}/>
+                    사용자
+                  </label>
+                  {currentFilter === "user" && <span className="absolute left-0 bottom-0 w-full h-1 rounded-sm bg-amber-300"/>}
+                </div>
               </div>
 
             </div>

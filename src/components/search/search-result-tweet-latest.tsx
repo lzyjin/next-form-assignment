@@ -1,11 +1,11 @@
 "use client";
 
 import {SearchTweetResultProps, Tweet} from "@/lib/types";
-import {moreSearchTweets, searchTweets} from "@/services/search-service";
-import TweetItem from "@/components/tweet-item";
+import {moreSearchTweetsLatest, searchTweetsLatest} from "@/services/search-service";
+import TweetItem from "@/components/tweet/tweet-item";
 import {useEffect, useRef, useState} from "react";
 
-export default function SearchResultTweet({query, userId}: SearchTweetResultProps) {
+export default function SearchResultTweetLatest({query, userId}: SearchTweetResultProps) {
   const [tweets, setTweets] = useState<Tweet[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(0);
@@ -14,7 +14,7 @@ export default function SearchResultTweet({query, userId}: SearchTweetResultProp
 
   useEffect(() => {
     async function setInitialTweets() {
-      const initialTweets = await searchTweets(query);
+      const initialTweets = await searchTweetsLatest(query);
       setTweets(initialTweets);
     }
 
@@ -29,7 +29,7 @@ export default function SearchResultTweet({query, userId}: SearchTweetResultProp
         if (element.isIntersecting && trigger.current) {
           observer.unobserve(trigger.current);
           setIsLoading(true);
-          const newTweets = await moreSearchTweets(query, page + 1);
+          const newTweets = await moreSearchTweetsLatest(query, page + 1);
 
           if (newTweets.length !== 0) {
             setPage(prev => prev + 1);

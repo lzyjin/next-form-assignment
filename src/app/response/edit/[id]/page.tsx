@@ -10,7 +10,7 @@ const getCachedTweet = nextCache(getTweet, ["tweet-edit"], {
   revalidate: 60,
 });
 
-export default async function TweetEdit({params}: { params: {id: string}}) {
+export default async function ResponseEdit({params}: { params: {id: string}}) {
   const id = Number(params.id);
 
   if (isNaN(id)) {

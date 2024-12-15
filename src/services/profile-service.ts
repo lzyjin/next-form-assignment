@@ -63,6 +63,20 @@ export async function getUserResponses(userId: number) {
     orderBy: {
       created_at: "desc",
     },
+    select: {
+      id: true,
+      response: true,
+      tweetId: true,
+      userId: true,
+      created_at: true,
+      updated_at: true,
+      user: {
+        select: {
+          id: true,
+          username: true,
+        },
+      }
+    }
   });
 
   return responses;
@@ -82,8 +96,10 @@ export async function getUserLikes(userId: number) {
       tweet: {
         select: {
           id: true,
+          userId: true,
           tweet: true,
           created_at: true,
+          updated_at: true,
           likes: true,
           responses: true,
           user: {

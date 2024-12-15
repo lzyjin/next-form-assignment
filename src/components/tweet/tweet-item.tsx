@@ -9,9 +9,11 @@ import {HeartIcon} from "@heroicons/react/24/solid";
 import Link from "next/link";
 import {Tweet} from "@/lib/types";
 import {useEffect, useState} from "react";
-import TweetMenuSection from "@/components/tweet-menu-section";
+import TweetMenuSection from "@/components/tweet/tweet-menu-section";
+import {usePathname} from "next/navigation";
 
 export default function TweetItem({tweet, userId, searchKeyword}: {tweet: Tweet, userId: number, searchKeyword?: string}) {
+  const pathname = usePathname();
   const [isLiked, setIsLiked] = useState(false);
   const [searchResultContent, setSearchResultContent] = useState<string[]>([]);
 
@@ -41,8 +43,11 @@ export default function TweetItem({tweet, userId, searchKeyword}: {tweet: Tweet,
   return (
     <div className="relative">
 
-      <Link href={`/tweets/${tweet.id}`} className="block border-b border-neutral-200 px-5 py-3
-      hover:bg-neutral-50 dark:border-[#3c4043] dark:hover:bg-neutral-800">
+      <Link href={`/tweets/${tweet.id}`} className={`
+        block border-b border-neutral-200 px-5 py-3 hover:bg-neutral-50 
+        dark:border-[#3c4043] dark:hover:bg-neutral-800
+        ${ pathname === "/" && tweet.userId === userId && "bg-amber-50 dark:bg-neutral-800"}
+        `}>
         <div className="flex items-center gap-2 mb-3">
           <p className="font-bold text-black dark:text-[#e7e9ea]">{tweet.user.username}</p>
           <p className="text-sm text-neutral-600 dark:text-[#71767b]">{formatDate(tweet.created_at.toString())}</p>

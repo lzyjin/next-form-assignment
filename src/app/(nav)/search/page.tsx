@@ -1,9 +1,9 @@
-import SearchBar from "@/components/search-bar";
 import {SearchProps} from "@/lib/types";
-import SearchResultTweet from "@/components/search-result-tweet";
-import SearchResultUser from "@/components/search-result-user";
-import SearchResultTweetLatest from "@/components/search-result-tweet-latest";
+import SearchResultTweet from "@/components/search/search-result-tweet";
+import SearchResultUser from "@/components/search/search-result-user";
+import SearchResultTweetLatest from "@/components/search/search-result-tweet-latest";
 import {getSession} from "@/lib/session";
+import SearchBar from "@/components/search/search-bar";
 
 export default async function Search({searchParams}: SearchProps) {
   const session = await getSession();

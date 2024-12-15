@@ -19,7 +19,7 @@ export async function checkUserExists (email: string) {
   return user;
 }
 
-export default async function logIn(prevState: unknown, formData: FormData) {
+export default async function logIn(_: unknown, formData: FormData) {
   const data = {
     email: formData.get("email"),
     password: formData.get("password"),

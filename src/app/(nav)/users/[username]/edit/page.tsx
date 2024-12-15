@@ -1,9 +1,9 @@
 import GoBackButton from "@/components/go-back-button";
 import {getSession} from "@/lib/session";
 import {notFound} from "next/navigation";
-import EditUserInfo from "@/components/edit-user-info";
+import EditUserInfo from "@/components/profile/edit-user-info";
 import {getUserInfo} from "@/services/user-service";
-import EditUserPassword from "@/components/edit-user-password";
+import EditUserPassword from "@/components/profile/edit-user-password";
 
 export default async function ProfileEdit({params}: {params: {username: string}}) {
   const session = await getSession();

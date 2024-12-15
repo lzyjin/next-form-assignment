@@ -1,6 +1,6 @@
 "use client";
 
-import TweetMenu from "@/components/tweet-menu";
+import TweetMenu from "@/components/tweet/tweet-menu";
 import DeleteModal from "@/components/delete-modal";
 import {useState} from "react";
 

@@ -2,31 +2,27 @@ import {formatDate} from "@/lib/utils";
 import {ProfileInfoProps} from "@/lib/types";
 import {CalendarDaysIcon} from "@heroicons/react/24/outline";
 import Link from "next/link";
-import {logOut} from "@/services/user-service";
-import {getSession} from "@/lib/session";
 
 export default async function ProfileInfo({username, bio, createdAt, isLoggedInUsersProfile}: ProfileInfoProps) {
-  const session = await getSession();
-  const userId = session.id!;
-
   return (
-    <div className="w-full flex justify-between items-top">
+    <div className="w-full flex justify-between items-top p-5">
       <div>
-        <p>{username}</p>
-        <p>{bio}</p>
-        <div className="flex items-center gap-1">
+        <p className="text-xl font-extrabold text-black dark:text-[#e7e9ea] mb-2">{username}</p>
+        <p className="text-black dark:text-[#e7e9ea] mb-2">{bio}</p>
+        <div className="flex items-center gap-1 text-sm text-neutral-600 dark:text-[#71767b]">
           <CalendarDaysIcon className="size-5"/>
           <span>가입일: {formatDate(createdAt.toString())}</span>
         </div>
       </div>
       {
         isLoggedInUsersProfile &&
-        <>
-          <Link href={`/users/${username}/edit`}>정보 수정</Link>
-          <form action={logOut}>
-            <button>로그아웃</button>
-          </form>
-        </>
+        <Link
+          href={`/users/${username}/edit`}
+          className="text-sm text-neutral-600 dark:text-[#71767b]"
+        >
+
+          <span>정보 수정</span>
+        </Link>
       }
     </div>
   );

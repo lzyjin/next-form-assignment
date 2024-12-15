@@ -1,5 +1,5 @@
-import TweetList from "@/components/tweet-list";
-import FormTweet from "@/components/form-tweet";
+import TweetList from "@/components/tweet/tweet-list";
+import FormTweet from "@/components/tweet/form-tweet";
 import {getInitialTweets} from "@/services/tweet-service";
 import {getSession} from "@/lib/session";
 import {notFound} from "next/navigation";

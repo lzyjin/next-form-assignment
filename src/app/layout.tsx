@@ -30,7 +30,7 @@ export default function RootLayout({
           theme="light"
           transition={Bounce}
         />
-        <div className="min-h-screen h-full max-w-xl mx-auto overflow-hidden border-r border-neutral-200 dark:border-[#3c4043]">
+        <div className="min-h-screen h-full max-w-xl mx-auto overflow-hidden border-l border-r border-neutral-200 dark:border-[#3c4043]">
           <div className="w-full h-ful">
             {children}
           </div>

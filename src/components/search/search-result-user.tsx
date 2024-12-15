@@ -1,16 +1,25 @@
 "use client";
 
+import {SearchUserResultProps, User} from "@/lib/types";
+import {moreSearchUsers, searchUsers} from "@/services/search-service";
+import UserItem from "@/components/user-item";
 import {useEffect, useRef, useState} from "react";
-import {TweetListProps} from "@/lib/types";
-import {getMoreTweets} from "@/services/tweet-service";
-import TweetItem from "@/components/tweet-item";
 
-export default function TweetList({initialTweets, userId}: TweetListProps) {
-  const [tweets, setTweets] = useState(initialTweets);
+export default function SearchResultUser({query}: SearchUserResultProps) {
+  const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
   const trigger = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    async function setInitialUsers() {
+      const initialUsers = await searchUsers(query);
+      setUsers(initialUsers);
+    }
+
+    setInitialUsers();
+  }, [query]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -20,11 +29,11 @@ export default function TweetList({initialTweets, userId}: TweetListProps) {
         if (element.isIntersecting && trigger.current) {
           observer.unobserve(trigger.current);
           setIsLoading(true);
-          const newTweets = await getMoreTweets(page + 1);
+          const newTweets = await moreSearchUsers(query, page + 1);
 
           if (newTweets.length !== 0) {
             setPage(prev => prev + 1);
-            setTweets(prev => [...prev, ...newTweets]);
+            setUsers(prev => [...prev, ...newTweets]);
             setIsLoading(false);
 
           } else {
@@ -47,32 +56,17 @@ export default function TweetList({initialTweets, userId}: TweetListProps) {
 
   }, [page]);
 
-  const handleMoreTweets = async () => {
-    const newTweets = await getMoreTweets(page + 1);
-
-    if (newTweets.length === 0) {
-      setIsLastPage(true);
-      return;
-    }
-
-    setTweets(prev => [...prev, ...newTweets]);
-
-    setPage(prev => prev + 1);
-  };
-
   return (
     <div>
-      <div className="flex flex-col">
-        {
-          tweets?.map(tweet => (
-            <TweetItem key={tweet.id} tweet={tweet} userId={userId} />
-          ))
-        }
-      </div>
+      { users.length === 0 && <p className="text-center mt-10">검색 결과가 없습니다.</p> }
+      {
+        users?.map(user => (
+          <UserItem key={user.id} user={user} />
+        ))
+      }
       {
         !isLastPage ?
-        <span ref={trigger} className="opacity-0">{ isLoading ? "Loading..." : "Load more" }</span>
-        :
+        <span ref={trigger} className="opacity-0">{ isLoading ? "Loading..." : "Load more" }</span> :
         null
       }
     </div>

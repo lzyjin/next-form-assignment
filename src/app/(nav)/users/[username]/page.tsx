@@ -1,10 +1,10 @@
 import {notFound} from "next/navigation";
 import {getSession} from "@/lib/session";
-import ProfileInfo from "@/components/profile-info";
+import ProfileInfo from "@/components/profile/profile-info";
 import {getUserTweets, getUserProfile} from "@/services/profile-service";
-import ProfileTabs from "@/components/profile-tabs";
+import ProfileTabs from "@/components/profile/profile-tabs";
 import {getLoggedInUsername} from "@/services/user-service";
-import TweetItem from "@/components/tweet-item";
+import TweetItem from "@/components/tweet/tweet-item";
 
 export default async function Profile({params}: {params: {username: string}}) {
   const session = await getSession();

@@ -1,3 +1,5 @@
+"use client";
+
 import {EllipsisHorizontalIcon, PencilIcon, TrashIcon} from "@heroicons/react/24/outline";
 import Link from "next/link";
 
@@ -5,11 +7,14 @@ export default function ResponseMenu(
   {toggleMenu, isMenuOpen, openDeleteModal, responseId}:
   {toggleMenu: () => void, isMenuOpen: boolean, openDeleteModal: () => void, responseId:number}
 ) {
+
   return (
     <div className="absolute right-2 top-2">
       <button
         onClick={toggleMenu}
-        className="text-neutral-700 size-8 rounded-full flex justify-center items-center hover:bg-amber-100 dark:text-[#71767b] dark:hover:bg-neutral-800 dark:hover:text-amber-300">
+        className="text-neutral-700 size-8 rounded-full flex justify-center items-center
+        hover:bg-amber-100
+        dark:text-[#71767b] dark:hover:bg-neutral-700 dark:hover:text-amber-300">
         <EllipsisHorizontalIcon className="size-5 stroke-2 "/>
       </button>
       {
@@ -22,7 +27,7 @@ export default function ResponseMenu(
             <TrashIcon className="size-4" />
             <span>삭제하기</span>
           </div>
-          <Link href={`/responses/${responseId}/edit`} className="block hover:bg-neutral-50">
+          <Link href={``} className="block hover:bg-neutral-50">
             <PencilIcon className="size-4" />
             <span>수정</span>
           </Link>
