@@ -54,7 +54,7 @@ export default function SearchResultUser({query}: SearchUserResultProps) {
       observer.disconnect();
     }
 
-  }, [page]);
+  }, [page, query]);
 
   return (
     <div>

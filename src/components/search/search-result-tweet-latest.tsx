@@ -54,7 +54,7 @@ export default function SearchResultTweetLatest({query, userId}: SearchTweetResu
       observer.disconnect();
     }
 
-  }, [page]);
+  }, [page, query]);
 
   return (
     <div>

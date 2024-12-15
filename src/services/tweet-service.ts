@@ -7,7 +7,6 @@ import {getSession} from "@/lib/session";
 import {revalidateTag} from "next/cache";
 import {addTweetSchema, editTweetSchema, tweetResponseSchema} from "@/lib/schemas";
 import {redirect} from "next/navigation";
-import {Bounce, toast} from "react-toastify";
 
 export async function getInitialTweets() {
   const tweets = await db.tweet.findMany({

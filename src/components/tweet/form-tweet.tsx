@@ -15,7 +15,7 @@ export default function FormTweet({currentTweet}: {currentTweet: Tweet | null}) 
     if (isEditPage) {
       setTweetLength(currentTweet.tweet.length);
     }
-  }, []);
+  }, [currentTweet?.tweet.length, isEditPage]);
 
   const onkeyup = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     textareaRef.current!.style.height = "auto";

@@ -47,19 +47,6 @@ export default function TweetList({initialTweets, userId}: TweetListProps) {
 
   }, [page]);
 
-  const handleMoreTweets = async () => {
-    const newTweets = await getMoreTweets(page + 1);
-
-    if (newTweets.length === 0) {
-      setIsLastPage(true);
-      return;
-    }
-
-    setTweets(prev => [...prev, ...newTweets]);
-
-    setPage(prev => prev + 1);
-  };
-
   return (
     <div>
       <div className="flex flex-col">

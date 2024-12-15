@@ -28,7 +28,7 @@ export default function ResponseMenuSection(
     <>
       { isMenuOpen && <div onClick={closeMenu} className="fixed left-0 top-0 w-screen h-screen z-10" /> }
 
-      { responseUserId === userId && <ResponseMenu toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} openDeleteModal={openDeleteModal} responseId={responseId} /> }
+      { responseUserId === userId && <ResponseMenu toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} openDeleteModal={openDeleteModal} /> }
 
       { isDeleteModalOpen && <DeleteModal targetId={responseId} targetType="response" /> }
     </>

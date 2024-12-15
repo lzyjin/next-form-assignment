@@ -3,7 +3,7 @@
 import Link from "next/link";
 import {HomeIcon} from "@heroicons/react/24/solid";
 import {UserCircleIcon} from "@heroicons/react/24/solid";
-import {EllipsisHorizontalIcon, PencilIcon, SunIcon, TrashIcon} from "@heroicons/react/24/outline";
+import {SunIcon} from "@heroicons/react/24/outline";
 import {HomeIcon as HomeIconOutline, MagnifyingGlassIcon, MoonIcon, UserIcon as UserIconOutline} from "@heroicons/react/24/outline";
 import {usePathname} from "next/navigation";
 import {UserIcon} from "@heroicons/react/24/solid";
@@ -15,7 +15,9 @@ export default function NavBar({loggedInUsername}: {loggedInUsername: string}) {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const handleSystemThemeChange = ({matches}: any) => {
+    const handleSystemThemeChange = (result: MediaQueryList) => {
+      const matches = result.matches;
+
       if (matches) {
         setIsDark(true);
       } else {
@@ -25,10 +27,10 @@ export default function NavBar({loggedInUsername}: {loggedInUsername: string}) {
 
     window
       .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener("change", handleSystemThemeChange);
+      .addEventListener("change", () => handleSystemThemeChange);
 
     return () => {
-      window.removeEventListener("change", handleSystemThemeChange);
+      window.removeEventListener("change", () => handleSystemThemeChange);
     }
   }, []);
 

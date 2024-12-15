@@ -54,7 +54,7 @@ export default function SearchResultTweet({query, userId}: SearchTweetResultProp
       observer.disconnect();
     }
 
-  }, [page]);
+  }, [page, query]);
 
   return (
     <div>

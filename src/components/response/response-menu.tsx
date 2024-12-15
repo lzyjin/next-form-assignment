@@ -4,8 +4,8 @@ import {EllipsisHorizontalIcon, PencilIcon, TrashIcon} from "@heroicons/react/24
 import Link from "next/link";
 
 export default function ResponseMenu(
-  {toggleMenu, isMenuOpen, openDeleteModal, responseId}:
-  {toggleMenu: () => void, isMenuOpen: boolean, openDeleteModal: () => void, responseId:number}
+  {toggleMenu, isMenuOpen, openDeleteModal}:
+  {toggleMenu: () => void, isMenuOpen: boolean, openDeleteModal: () => void, responseId?:number}
 ) {
 
   return (
